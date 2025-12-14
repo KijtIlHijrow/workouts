@@ -70,6 +70,7 @@ export function WorkoutStepper() {
   // Template state
   const [templates, setTemplates] = useState<WorkoutTemplateWithExercises[]>([]);
   const [showTemplateSelection, setShowTemplateSelection] = useState(true);
+  const [isLoadingTemplates, setIsLoadingTemplates] = useState(true);
   const [isSavingTemplate, setIsSavingTemplate] = useState(false);
   const saveTemplateModal = useBoolean();
 
@@ -81,6 +82,8 @@ export function WorkoutStepper() {
         setTemplates(fetchedTemplates);
       } catch (error) {
         console.error("Error fetching templates:", error);
+      } finally {
+        setIsLoadingTemplates(false);
       }
     };
     fetchTemplates();
@@ -276,6 +279,15 @@ export function WorkoutStepper() {
         )}
         {!showCongrats && <WorkoutSessionHeader onQuitWorkout={quitWorkout} />}
         <WorkoutSessionSets isWorkoutActive={isWorkoutActive} onCongrats={handleCongrats} showCongrats={showCongrats} />
+      </div>
+    );
+  }
+
+  // Show loading state while fetching templates (prevents flash to stepper)
+  if (showTemplateSelection && isLoadingTemplates) {
+    return (
+      <div className="w-full max-w-6xl mx-auto h-full px-4 py-6 flex items-center justify-center">
+        <div className="animate-pulse text-slate-500">{t("commons.loading")}</div>
       </div>
     );
   }
