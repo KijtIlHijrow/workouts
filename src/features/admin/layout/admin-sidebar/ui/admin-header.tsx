@@ -61,13 +61,13 @@ export function AdminHeader({ user }: AdminHeaderProps) {
               <DropdownMenuItem asChild>
                 <Link className="flex items-center space-x-2" href={`/${paths.profile}`}>
                   <UserCog className="h-4 w-4" />
-                  <span>Profil</span>
+                  <span>Profile</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => logout.mutate()}>
                 <div className="flex items-center space-x-2">
                   <LogOut className="h-4 w-4" />
-                  <span>Déconnexion</span>
+                  <span>Logout</span>
                 </div>
               </DropdownMenuItem>
             </DropdownMenuContent>

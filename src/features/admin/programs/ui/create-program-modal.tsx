@@ -11,9 +11,9 @@ interface CreateProgramModalProps {
 }
 
 const STEPS = [
-  { id: 1, title: "Informations générales", description: "Titre, description, niveau..." },
-  { id: 2, title: "Configuration", description: "Durée, fréquence, équipement..." },
-  { id: 3, title: "Coachs", description: "Ajouter les coachs du programme" },
+  { id: 1, title: "General Information", description: "Title, description, level..." },
+  { id: 2, title: "Configuration", description: "Duration, frequency, equipment..." },
+  { id: 3, title: "Coaches", description: "Add program coaches" },
 ] as const;
 
 export function CreateProgramModal({ open, onOpenChange }: CreateProgramModalProps) {
@@ -49,7 +49,7 @@ export function CreateProgramModal({ open, onOpenChange }: CreateProgramModalPro
         <div className="modal modal-open">
           <div className="modal-box w-11/12 max-w-4xl h-full max-h-[90vh] flex flex-col">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-bold text-lg">Créer un nouveau programme</h3>
+              <h3 className="font-bold text-lg">Create a new program</h3>
               <button 
                 className="btn btn-sm btn-circle btn-ghost"
                 onClick={handleClose}

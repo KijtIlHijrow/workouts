@@ -113,12 +113,12 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
         // Success: Reload to apply the new session
         window.location.reload();
       } else {
-        console.error("Erreur d'impersonnalisation:", impersonatedSession?.error);
-        alert(`Erreur d'impersonnalisation: ${impersonatedSession?.error?.message || "Une erreur est survenue."}`);
+        console.error("Impersonation error:", impersonatedSession?.error);
+        alert(`Impersonation error: ${impersonatedSession?.error?.message || "An error occurred."}`);
       }
     } catch (error) {
-      console.error("Exception lors de l'impersonnalisation:", error);
-      alert("Une exception est survenue lors de l'impersonnalisation.");
+      console.error("Exception during impersonation:", error);
+      alert("An exception occurred during impersonation.");
     } finally {
       setImpersonatingUserId(null);
     }
@@ -129,7 +129,7 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
     return (
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold">Tous les utilisateurs</h2>
+          <h2 className="text-xl font-semibold">All Users</h2>
           <Skeleton className="w-sm h-10 max-w-sm" />
         </div>
         <div className="rounded-md border p-4">
@@ -146,10 +146,10 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
       <div className="border-destructive bg-destructive/10 space-y-4 rounded-md border p-4">
         <div className="text-destructive flex items-center">
           <AlertTriangle className="mr-2 h-5 w-5" />
-          <h3 className="text-lg font-semibold">Erreur de chargement des utilisateurs</h3>
+          <h3 className="text-lg font-semibold">Error loading users</h3>
         </div>
         <p className="text-destructive/80 text-sm">
-          Impossible de récupérer la liste des utilisateurs. Veuillez réessayer plus tard. ({error?.message || "Erreur inconnue"})
+          Unable to retrieve user list. Please try again later. ({error?.message || "Unknown error"})
         </p>
       </div>
     );
@@ -160,7 +160,7 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
   if (!data || !data.data) {
     // This case should ideally be handled by the error state or empty data state below
     // but kept as a fallback.
-    return <p>Aucune donnée disponible ou erreur de chargement.</p>;
+    return <p>No data available or loading error.</p>;
   }
 
   const totalPages = data.data.pagination.pages || 1;
@@ -170,8 +170,8 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Tous les utilisateurs</h2>
-        <Input className="max-w-sm" onChange={handleSearchInputChange} placeholder="Rechercher par ID ou email..." value={inputValue} />
+        <h2 className="text-xl font-semibold">All Users</h2>
+        <Input className="max-w-sm" onChange={handleSearchInputChange} placeholder="Search by ID or email..." value={inputValue} />
       </div>
 
       <div className="rounded-md border">
@@ -179,15 +179,15 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
           <TableHeader>
             <TableRow>
               <TableHead>ID</TableHead>
-              <TableHead>Nom</TableHead>
+              <TableHead>Name</TableHead>
               <TableHead className="hover:bg-muted/50 cursor-pointer" onClick={() => handleSort("email")}>
                 Email
                 {renderSortIndicator("email")}
               </TableHead>
-              <TableHead>Rôle</TableHead>
-              <TableHead>Vérifié</TableHead>
+              <TableHead>Role</TableHead>
+              <TableHead>Verified</TableHead>
               <TableHead className="hover:bg-muted/50 cursor-pointer" onClick={() => handleSort("createdAt")}>
-                Créé le
+                Created
                 {renderSortIndicator("createdAt")}
               </TableHead>
               <TableHead className="text-right">Actions</TableHead>
@@ -207,7 +207,7 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
                 <TableCell className="text-destructive py-4 text-center" colSpan={7}>
                   <div className="flex items-center justify-center">
                     <AlertTriangle className="mr-2 h-5 w-5" />
-                    <span>Erreur lors du chargement des données.</span>
+                    <span>Error loading data.</span>
                   </div>
                   <p className="text-muted-foreground text-xs">{error?.message}</p>
                 </TableCell>
@@ -215,7 +215,7 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
             ) : !tableIsEffectivelyLoading && usersToDisplay.length === 0 ? (
               <TableRow>
                 <TableCell className="py-4 text-center" colSpan={7}>
-                  Aucun utilisateur trouvé.
+                  No users found.
                 </TableCell>
               </TableRow>
             ) : (
@@ -244,11 +244,11 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
                       disabled={impersonatingUserId === user.id}
                       onClick={() => handleImpersonate(user.id)}
                       size="small"
-                      title={`Impersonnaliser ${user.firstName || ""} ${user.lastName || ""}`}
+                      title={`Impersonate ${user.firstName || ""} ${user.lastName || ""}`}
                       variant="outline"
                     >
                       <Eye className="mr-2 h-4 w-4" />
-                      {impersonatingUserId === user.id ? "Chargement..." : "Impersonnaliser"}
+                      {impersonatingUserId === user.id ? "Loading..." : "Impersonate"}
                     </Button>
                   </TableCell>
                 </TableRow>

@@ -15,7 +15,7 @@ export function CreateProgramButton() {
         onClick={() => setIsModalOpen(true)}
       >
         <Plus className="h-4 w-4" />
-        Créer un programme
+        Create Program
       </button>
       
       <CreateProgramModal

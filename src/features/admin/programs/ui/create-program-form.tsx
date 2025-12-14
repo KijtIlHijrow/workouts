@@ -11,35 +11,35 @@ import { createProgram } from "../actions/create-program.action";
 
 const programSchema = z.object({
   // Step 1: Basic info
-  title: z.string().min(1, "Le titre est requis"),
-  titleEn: z.string().min(1, "Le titre en anglais est requis"),
-  titleEs: z.string().min(1, "Le titre en espagnol est requis"),
-  titlePt: z.string().min(1, "Le titre en portugais est requis"),
-  titleRu: z.string().min(1, "Le titre en russe est requis"),
-  titleZhCn: z.string().min(1, "Le titre en chinois est requis"),
-  description: z.string().min(1, "La description est requise"),
-  descriptionEn: z.string().min(1, "La description en anglais est requise"),
-  descriptionEs: z.string().min(1, "La description en espagnol est requise"),
-  descriptionPt: z.string().min(1, "La description en portugais est requise"),
-  descriptionRu: z.string().min(1, "La description en russe est requise"),
-  descriptionZhCn: z.string().min(1, "La description en chinois est requise"),
-  category: z.string().min(1, "La catégorie est requise"),
-  image: z.string().url("URL d'image invalide"),
+  title: z.string().min(1, "Title is required"),
+  titleEn: z.string().min(1, "English title is required"),
+  titleEs: z.string().min(1, "Spanish title is required"),
+  titlePt: z.string().min(1, "Portuguese title is required"),
+  titleRu: z.string().min(1, "Russian title is required"),
+  titleZhCn: z.string().min(1, "Chinese title is required"),
+  description: z.string().min(1, "Description is required"),
+  descriptionEn: z.string().min(1, "English description is required"),
+  descriptionEs: z.string().min(1, "Spanish description is required"),
+  descriptionPt: z.string().min(1, "Portuguese description is required"),
+  descriptionRu: z.string().min(1, "Russian description is required"),
+  descriptionZhCn: z.string().min(1, "Chinese description is required"),
+  category: z.string().min(1, "Category is required"),
+  image: z.string().url("Invalid image URL"),
   level: z.nativeEnum(ProgramLevel),
   type: z.nativeEnum(ExerciseAttributeValueEnum),
 
   // Step 2: Configuration
-  durationWeeks: z.number().min(1, "Au moins 1 semaine"),
-  sessionsPerWeek: z.number().min(1, "Au moins 1 séance par semaine"),
-  sessionDurationMin: z.number().min(5, "Au moins 5 minutes"),
+  durationWeeks: z.number().min(1, "At least 1 week"),
+  sessionsPerWeek: z.number().min(1, "At least 1 session per week"),
+  sessionDurationMin: z.number().min(5, "At least 5 minutes"),
   equipment: z.array(z.nativeEnum(ExerciseAttributeValueEnum)),
   isPremium: z.boolean(),
 
   // Step 3: Coaches
   coaches: z.array(
     z.object({
-      name: z.string().min(1, "Le nom est requis"),
-      image: z.string().url("URL d'image invalide"),
+      name: z.string().min(1, "Name is required"),
+      image: z.string().url("Invalid image URL"),
       order: z.number(),
     }),
   ),
@@ -55,21 +55,21 @@ interface CreateProgramFormProps {
 }
 
 const EQUIPMENT_OPTIONS = [
-  { value: ExerciseAttributeValueEnum.BODY_ONLY, label: "Poids du corps" },
-  { value: ExerciseAttributeValueEnum.DUMBBELL, label: "Haltères" },
-  { value: ExerciseAttributeValueEnum.BARBELL, label: "Barre" },
+  { value: ExerciseAttributeValueEnum.BODY_ONLY, label: "Bodyweight" },
+  { value: ExerciseAttributeValueEnum.DUMBBELL, label: "Dumbbells" },
+  { value: ExerciseAttributeValueEnum.BARBELL, label: "Barbell" },
   { value: ExerciseAttributeValueEnum.KETTLEBELLS, label: "Kettlebells" },
-  { value: ExerciseAttributeValueEnum.BANDS, label: "Élastiques" },
+  { value: ExerciseAttributeValueEnum.BANDS, label: "Bands" },
   { value: ExerciseAttributeValueEnum.MACHINE, label: "Machines" },
-  { value: ExerciseAttributeValueEnum.CABLE, label: "Câbles" },
+  { value: ExerciseAttributeValueEnum.CABLE, label: "Cables" },
 ];
 
 const TYPE_OPTIONS = [
-  { value: ExerciseAttributeValueEnum.STRENGTH, label: "Musculation" },
+  { value: ExerciseAttributeValueEnum.STRENGTH, label: "Strength" },
   { value: ExerciseAttributeValueEnum.CARDIO, label: "Cardio" },
-  { value: ExerciseAttributeValueEnum.BODYWEIGHT, label: "Poids du corps" },
-  { value: ExerciseAttributeValueEnum.STRETCHING, label: "Étirements" },
-  { value: ExerciseAttributeValueEnum.CALISTHENIC, label: "Callisthénie" },
+  { value: ExerciseAttributeValueEnum.BODYWEIGHT, label: "Bodyweight" },
+  { value: ExerciseAttributeValueEnum.STRETCHING, label: "Stretching" },
+  { value: ExerciseAttributeValueEnum.CALISTHENIC, label: "Calisthenics" },
 ];
 
 export function CreateProgramForm({ currentStep, onStepComplete, onSuccess, onCancel }: CreateProgramFormProps) {
@@ -142,7 +142,7 @@ export function CreateProgramForm({ currentStep, onStepComplete, onSuccess, onCa
       onSuccess();
     } catch (error) {
       console.error("Error creating program:", error);
-      alert("Erreur lors de la création du programme");
+      alert("Error creating program");
     } finally {
       setIsLoading(false);
     }
@@ -151,7 +151,7 @@ export function CreateProgramForm({ currentStep, onStepComplete, onSuccess, onCa
   const renderStep1 = () => (
     <div className="card bg-base-100 shadow-xl">
       <div className="card-body">
-        <h2 className="card-title">Informations générales</h2>
+        <h2 className="card-title">General Information</h2>
         
         {/* Language Tabs */}
         <div className="tabs tabs-boxed mb-6">
@@ -181,14 +181,14 @@ export function CreateProgramForm({ currentStep, onStepComplete, onSuccess, onCa
             <div className="space-y-4">
               <div className="form-control">
                 <label className="label" htmlFor="title">
-                  <span className="label-text">Titre (Français)</span>
+                  <span className="label-text">Title (French)</span>
                 </label>
                 <input className="input input-bordered" id="title" {...register("title")} />
                 {errors.title && <div className="text-sm text-error mt-1">{errors.title.message}</div>}
               </div>
               <div className="form-control">
                 <label className="label" htmlFor="description">
-                  <span className="label-text">Description (Français)</span>
+                  <span className="label-text">Description (French)</span>
                 </label>
                 <textarea className="textarea textarea-bordered h-24" id="description" {...register("description")} />
                 {errors.description && <div className="text-sm text-error mt-1">{errors.description.message}</div>}
@@ -299,14 +299,14 @@ export function CreateProgramForm({ currentStep, onStepComplete, onSuccess, onCa
           <div className="grid grid-cols-2 gap-4">
             <div className="form-control">
               <label className="label" htmlFor="category">
-                <span className="label-text">Catégorie</span>
+                <span className="label-text">Category</span>
               </label>
-              <input className="input input-bordered" id="category" {...register("category")} placeholder="ex: Musculation" />
+              <input className="input input-bordered" id="category" {...register("category")} placeholder="e.g. Strength Training" />
               {errors.category && <div className="text-sm text-error mt-1">{errors.category.message}</div>}
             </div>
             <div className="form-control">
               <label className="label" htmlFor="image">
-                <span className="label-text">URL de l&apos;image</span>
+                <span className="label-text">Image URL</span>
               </label>
               <input className="input input-bordered" id="image" {...register("image")} placeholder="https://..." />
               {errors.image && <div className="text-sm text-error mt-1">{errors.image.message}</div>}
@@ -316,16 +316,16 @@ export function CreateProgramForm({ currentStep, onStepComplete, onSuccess, onCa
           <div className="grid grid-cols-3 gap-4">
             <div className="form-control">
               <label className="label" htmlFor="level">
-                <span className="label-text">Niveau</span>
+                <span className="label-text">Level</span>
               </label>
               <select
                 className="select select-bordered"
                 defaultValue={ProgramLevel.BEGINNER}
                 onChange={(e) => setValue("level", e.target.value as ProgramLevel)}
               >
-                <option value={ProgramLevel.BEGINNER}>Débutant</option>
-                <option value={ProgramLevel.INTERMEDIATE}>Intermédiaire</option>
-                <option value={ProgramLevel.ADVANCED}>Avancé</option>
+                <option value={ProgramLevel.BEGINNER}>Beginner</option>
+                <option value={ProgramLevel.INTERMEDIATE}>Intermediate</option>
+                <option value={ProgramLevel.ADVANCED}>Advanced</option>
                 <option value={ProgramLevel.EXPERT}>Expert</option>
               </select>
             </div>
@@ -354,12 +354,12 @@ export function CreateProgramForm({ currentStep, onStepComplete, onSuccess, onCa
   const renderStep2 = () => (
     <div className="card bg-base-100 shadow-xl">
       <div className="card-body">
-        <h2 className="card-title">Configuration du programme</h2>
+        <h2 className="card-title">Program Configuration</h2>
         <div className="space-y-6">
           <div className="grid grid-cols-3 gap-4">
             <div className="form-control">
               <label className="label" htmlFor="durationWeeks">
-                <span className="label-text">Durée (semaines)</span>
+                <span className="label-text">Duration (weeks)</span>
               </label>
               <input
                 className="input input-bordered"
@@ -372,7 +372,7 @@ export function CreateProgramForm({ currentStep, onStepComplete, onSuccess, onCa
             </div>
             <div className="form-control">
               <label className="label" htmlFor="sessionsPerWeek">
-                <span className="label-text">Séances/semaine</span>
+                <span className="label-text">Sessions/week</span>
               </label>
               <input
                 className="input input-bordered"
@@ -385,7 +385,7 @@ export function CreateProgramForm({ currentStep, onStepComplete, onSuccess, onCa
             </div>
             <div className="form-control">
               <label className="label" htmlFor="sessionDurationMin">
-                <span className="label-text">Durée séance (min)</span>
+                <span className="label-text">Session duration (min)</span>
               </label>
               <input
                 className="input input-bordered"
@@ -400,7 +400,7 @@ export function CreateProgramForm({ currentStep, onStepComplete, onSuccess, onCa
 
           <div>
             <label className="label">
-              <span className="label-text">Équipement requis</span>
+              <span className="label-text">Required equipment</span>
             </label>
             <div className="flex flex-wrap gap-2 mt-2">
               {EQUIPMENT_OPTIONS.map((option) => (
@@ -424,7 +424,7 @@ export function CreateProgramForm({ currentStep, onStepComplete, onSuccess, onCa
                 onChange={(e) => setValue("isPremium", e.target.checked)}
                 type="checkbox"
               />
-              <span className="label-text">Programme premium</span>
+              <span className="label-text">Premium program</span>
             </label>
           </div>
         </div>
@@ -436,32 +436,32 @@ export function CreateProgramForm({ currentStep, onStepComplete, onSuccess, onCa
     <div className="card bg-base-100 shadow-xl">
       <div className="card-body">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="card-title">Coachs du programme</h2>
+          <h2 className="card-title">Program Coaches</h2>
           <button className="btn btn-sm btn-primary" onClick={addCoach} type="button">
             <Plus className="h-4 w-4 mr-1" />
-            Ajouter
+            Add
           </button>
         </div>
         <div className="space-y-4">
           {coaches.length === 0 ? (
-            <p className="text-base-content/60 text-center py-8">Aucun coach ajouté. Cliquez sur &quot;Ajouter&quot; pour commencer.</p>
+            <p className="text-base-content/60 text-center py-8">No coaches added. Click &quot;Add&quot; to get started.</p>
           ) : (
             coaches.map((_, index) => (
               <div className="flex gap-4 items-end" key={index}>
                 <div className="flex-1 form-control">
                   <label className="label" htmlFor={`coach-name-${index}`}>
-                    <span className="label-text">Nom</span>
+                    <span className="label-text">Name</span>
                   </label>
                   <input
                     className="input input-bordered"
                     id={`coach-name-${index}`}
                     {...register(`coaches.${index}.name`)}
-                    placeholder="Nom du coach"
+                    placeholder="Coach name"
                   />
                 </div>
                 <div className="flex-1 form-control">
                   <label className="label" htmlFor={`coach-image-${index}`}>
-                    <span className="label-text">URL de l&apos;image</span>
+                    <span className="label-text">Image URL</span>
                   </label>
                   <input
                     className="input input-bordered"
@@ -489,10 +489,10 @@ export function CreateProgramForm({ currentStep, onStepComplete, onSuccess, onCa
 
       <div className="flex justify-between pt-6 border-t border-base-300">
         <button className="btn btn-outline" onClick={onCancel} type="button">
-          Annuler
+          Cancel
         </button>
         <button className="btn btn-primary" disabled={isLoading} type="submit">
-          {currentStep === 3 ? (isLoading ? "Création..." : "Créer le programme") : "Suivant"}
+          {currentStep === 3 ? (isLoading ? "Creating..." : "Create Program") : "Next"}
         </button>
       </div>
     </form>

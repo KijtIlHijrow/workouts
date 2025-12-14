@@ -24,7 +24,7 @@ export function DeleteProgramButton({ programId, programTitle }: DeleteProgramBu
       router.refresh();
     } catch (error) {
       console.error("Error deleting program:", error);
-      alert(error instanceof Error ? error.message : "Erreur lors de la suppression");
+      alert(error instanceof Error ? error.message : "Error deleting program");
     } finally {
       setIsDeleting(false);
     }
@@ -39,11 +39,9 @@ export function DeleteProgramButton({ programId, programTitle }: DeleteProgramBu
       {isModalOpen && (
         <div className="modal modal-open">
           <div className="modal-box">
-            <h3 className="font-bold text-lg">Confirmer la suppression</h3>
+            <h3 className="font-bold text-lg">Confirm deletion</h3>
             <p className="py-4">
-              Êtes-vous sûr de vouloir supprimer le programme <strong>{programTitle}</strong> ? Cette action est irréversible. Au bout de 30
-              jours, tu ne pourras plus accéder à ton compte, ni à tes données. Tu devras créer un nouveau compte si tu veux continuer à
-              utiliser l&apos;application.
+              Are you sure you want to delete the program <strong>{programTitle}</strong>? This action is irreversible.
             </p>
             {/* Warning if program has enrollments */}
             <div className="alert alert-warning">
@@ -55,20 +53,20 @@ export function DeleteProgramButton({ programId, programTitle }: DeleteProgramBu
                   strokeWidth="2"
                 />
               </svg>
-              <span>Cette action supprimera toutes les semaines, séances et exercices associés.</span>
+              <span>This will delete all associated weeks, sessions and exercises.</span>
             </div>
             <div className="modal-action">
               <button className="btn btn-outline" disabled={isDeleting} onClick={() => setIsModalOpen(false)}>
-                Annuler
+                Cancel
               </button>
               <button className="btn btn-error" disabled={isDeleting} onClick={handleDelete}>
                 {isDeleting ? (
                   <>
                     <span className="loading loading-spinner loading-sm"></span>
-                    Suppression...
+                    Deleting...
                   </>
                 ) : (
-                  "Supprimer"
+                  "Delete"
                 )}
               </button>
             </div>

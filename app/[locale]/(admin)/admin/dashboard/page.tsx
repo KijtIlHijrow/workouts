@@ -71,12 +71,12 @@ async function DashboardStats() {
                   <div className="rounded-xl bg-blue-500 p-2">
                     <Users className="h-5 w-5 text-white" />
                   </div>
-                  <span className="text-xs font-medium uppercase tracking-wider text-blue-600 dark:text-blue-400">Communauté</span>
+                  <span className="text-xs font-medium uppercase tracking-wider text-blue-600 dark:text-blue-400">Community</span>
                 </div>
                 <h3 className="text-3xl font-bold text-gray-900 dark:text-white">{stats.totalUsers.toLocaleString()}</h3>
+                <p className="text-xs text-gray-600 dark:text-gray-300">Users</p>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
-                  <p className="text-xs text-gray-600 dark:text-gray-300">Utilisateurs</p>
-                  <span className="font-semibold text-green-600 dark:text-green-400">+{stats.recentUsers}</span> cette semaine
+                  <span className="font-semibold text-green-600 dark:text-green-400">+{stats.recentUsers}</span> this week
                 </p>
               </div>
               <div className="transition-transform duration-200 group-hover:rotate-6">
@@ -102,7 +102,7 @@ async function DashboardStats() {
             </div>
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalWorkoutSessions.toLocaleString()}</h3>
             <p className="text-xs text-gray-600 dark:text-gray-300">Sessions</p>
-            <p className="text-xs text-green-600 dark:text-green-400">+{stats.recentWorkouts} cette semaine</p>
+            <p className="text-xs text-green-600 dark:text-green-400">+{stats.recentWorkouts} this week</p>
           </div>
         </div>
       </div>
@@ -124,7 +124,7 @@ async function DashboardStats() {
               </div>
             </div>
             <h3 className="text-xl font-bold text-gray-900 dark:text-white">{stats.totalPrograms.toLocaleString()}</h3>
-            <p className="text-xs text-gray-600 dark:text-gray-300">Programmes</p>
+            <p className="text-xs text-gray-600 dark:text-gray-300">Programs</p>
           </div>
         </div>
 
@@ -142,7 +142,7 @@ async function DashboardStats() {
               </div>
             </div>
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalExercises.toLocaleString()}</h3>
-            <p className="text-xs text-gray-600 dark:text-gray-300">Exercices</p>
+            <p className="text-xs text-gray-600 dark:text-gray-300">Exercises</p>
           </div>
         </div>
 
@@ -161,7 +161,7 @@ async function DashboardStats() {
               </div>
             </div>
             <h3 className="text-xl font-bold text-gray-900 dark:text-white">{stats.activeSubscriptions}</h3>
-            <p className="text-xs text-gray-600 dark:text-gray-300">Abonnés</p>
+            <p className="text-xs text-gray-600 dark:text-gray-300">Subscribers</p>
           </div>
         </div>
       </div>

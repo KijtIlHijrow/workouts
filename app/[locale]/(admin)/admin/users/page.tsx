@@ -21,14 +21,14 @@ export default async function AdminUsersPage() {
 
     // Check if the action was successful
     if (!result || !result.data) {
-      throw new Error("Impossible de charger les utilisateurs");
+      throw new Error("Unable to load users");
     }
 
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Utilisateurs</h1>
-          <p className="text-muted-foreground">Gestion et administration des comptes utilisateurs</p>
+          <h1 className="text-3xl font-bold tracking-tight">Users</h1>
+          <p className="text-muted-foreground">User account management and administration</p>
         </div>
         <UsersTable initialUsers={result} />
       </div>
@@ -39,15 +39,15 @@ export default async function AdminUsersPage() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Utilisateurs</h1>
-          <p className="text-muted-foreground">Gestion et administration des comptes utilisateurs</p>
+          <h1 className="text-3xl font-bold tracking-tight">Users</h1>
+          <p className="text-muted-foreground">User account management and administration</p>
         </div>
         <div className="rounded-lg border border-red-200 bg-red-50 p-6 dark:border-red-800 dark:bg-red-950">
-          <h2 className="text-lg font-semibold text-red-800 dark:text-red-200">Erreur de chargement</h2>
+          <h2 className="text-lg font-semibold text-red-800 dark:text-red-200">Loading Error</h2>
           <p className="mt-2 text-sm text-red-700 dark:text-red-300">
-            Impossible de charger la liste des utilisateurs. Veuillez réessayer plus tard.
+            Unable to load user list. Please try again later.
           </p>
-          <p className="mt-1 text-xs text-red-600 dark:text-red-400">{error instanceof Error ? error.message : "Erreur inconnue"}</p>
+          <p className="mt-1 text-xs text-red-600 dark:text-red-400">{error instanceof Error ? error.message : "Unknown error"}</p>
         </div>
       </div>
     );

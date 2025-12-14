@@ -14,17 +14,17 @@ interface VisibilityBadgeProps {
 
 const visibilityConfig = {
   [ProgramVisibility.DRAFT]: {
-    label: "Brouillon",
+    label: "Draft",
     icon: EyeOff,
     color: "badge-warning",
   },
   [ProgramVisibility.PUBLISHED]: {
-    label: "Publié",
+    label: "Published",
     icon: Eye,
     color: "badge-success",
   },
   [ProgramVisibility.ARCHIVED]: {
-    label: "Archivé",
+    label: "Archived",
     icon: Archive,
     color: "badge-neutral",
   },
@@ -48,7 +48,7 @@ export function VisibilityBadge({ programId, currentVisibility }: VisibilityBadg
       router.refresh();
     } catch (error) {
       console.error("Error updating visibility:", error);
-      alert(error instanceof Error ? error.message : "Erreur lors de la mise à jour");
+      alert(error instanceof Error ? error.message : "Error updating visibility");
     } finally {
       setIsUpdating(false);
     }
