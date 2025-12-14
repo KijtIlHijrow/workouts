@@ -1,19 +1,23 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useQueryState } from "nuqs";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ExerciseAttributeValueEnum } from "@prisma/client";
+import { Bookmark } from "lucide-react";
 
 import { useCurrentLocale, useI18n } from "locales/client";
 import Trophy from "@public/images/trophy.png";
 import useBoolean from "@/shared/hooks/useBoolean";
 import { WorkoutSessionSets } from "@/features/workout-session/ui/workout-session-sets";
 import { WorkoutSessionHeader } from "@/features/workout-session/ui/workout-session-header";
-import { DonationModal } from "@/features/workout-session/ui/donation-modal";
-import { useDonationModal } from "@/features/workout-session/hooks/use-donation-modal";
 import { WorkoutBuilderFooter } from "@/features/workout-builder/ui/workout-stepper-footer";
+import { TemplateList } from "@/features/workout-templates/ui/template-list";
+import { SaveTemplateModal } from "@/features/workout-templates/ui/save-template-modal";
+import { getTemplates, WorkoutTemplateWithExercises } from "@/features/workout-templates/actions/get-templates.action";
+import { createTemplate } from "@/features/workout-templates/actions/create-template.action";
+import { deleteTemplate } from "@/features/workout-templates/actions/delete-template.action";
 import { env } from "@/env";
 import { Button } from "@/components/ui/button";
 import { NutripureAffiliateBanner } from "@/components/ads/nutripure-affiliate-banner";
@@ -63,6 +67,25 @@ export function WorkoutStepper() {
     loadSessionFromLocal();
   }, []);
 
+  // Template state
+  const [templates, setTemplates] = useState<WorkoutTemplateWithExercises[]>([]);
+  const [showTemplateSelection, setShowTemplateSelection] = useState(true);
+  const [isSavingTemplate, setIsSavingTemplate] = useState(false);
+  const saveTemplateModal = useBoolean();
+
+  // Fetch templates on mount
+  useEffect(() => {
+    const fetchTemplates = async () => {
+      try {
+        const fetchedTemplates = await getTemplates();
+        setTemplates(fetchedTemplates);
+      } catch (error) {
+        console.error("Error fetching templates:", error);
+      }
+    };
+    fetchTemplates();
+  }, []);
+
   const [flatExercises, setFlatExercises] = useState<{ id: string; muscle: string; exercise: ExerciseWithAttributes }[]>([]);
 
   useEffect(() => {
@@ -79,10 +102,12 @@ export function WorkoutStepper() {
   }, [exercisesByMuscle]);
 
   useEffect(() => {
-    if (currentStep === 3 && !fromSession) {
+    // Only fetch exercises if we're on step 3, not from a session, AND no exercises exist yet
+    // This prevents overwriting exercises added via quick search
+    if (currentStep === 3 && !fromSession && exercisesByMuscle.length === 0) {
       fetchExercises();
     }
-  }, [currentStep, selectedEquipment, selectedMuscles, fromSession]);
+  }, [currentStep, fromSession, exercisesByMuscle.length]);
 
   const { isWorkoutActive, session, startWorkout, quitWorkout } = useWorkoutSession();
 
@@ -148,7 +173,6 @@ export function WorkoutStepper() {
   };
 
   const [showCongrats, setShowCongrats] = useState(false);
-  const { showModal, openModal, closeModal } = useDonationModal();
 
   const goToProfile = () => {
     router.push("/profile");
@@ -156,11 +180,61 @@ export function WorkoutStepper() {
 
   const handleCongrats = () => {
     setShowCongrats(true);
-    // Show donation modal after congrats screen appears
-    setTimeout(() => {
-      openModal();
-    }, 400);
   };
+
+  // Template handlers
+  const handleStartFromTemplate = useCallback((template: WorkoutTemplateWithExercises) => {
+    const exercises = template.exercises.map((te) => te.exercise as ExerciseWithAttributes);
+    if (exercises.length > 0) {
+      startWorkout(exercises, template.equipment, template.muscles);
+    }
+  }, [startWorkout]);
+
+  const handleEditTemplate = useCallback((template: WorkoutTemplateWithExercises) => {
+    // TODO: Implement edit flow - for now, just log
+    console.log("Edit template:", template.id);
+  }, []);
+
+  const handleDeleteTemplate = useCallback(async (template: WorkoutTemplateWithExercises) => {
+    if (!window.confirm(t("workout_templates.delete_confirm"))) return;
+
+    try {
+      await deleteTemplate(template.id);
+      setTemplates((prev) => prev.filter((t) => t.id !== template.id));
+    } catch (error) {
+      console.error("Error deleting template:", error);
+    }
+  }, [t]);
+
+  const handleBuildNew = useCallback(() => {
+    setShowTemplateSelection(false);
+  }, []);
+
+  const handleSaveTemplate = useCallback(async (name: string) => {
+    setIsSavingTemplate(true);
+    try {
+      const exerciseData = orderedExercises.map((ex, index) => ({
+        exerciseId: ex.id,
+        order: index,
+      }));
+
+      const newTemplate = await createTemplate({
+        name,
+        equipment: selectedEquipment,
+        muscles: selectedMuscles,
+        exercises: exerciseData,
+      });
+
+      setTemplates((prev) => [newTemplate as WorkoutTemplateWithExercises, ...prev]);
+      saveTemplateModal.setFalse();
+      alert(t("workout_templates.saved_success"));
+    } catch (error) {
+      console.error("Error saving template:", error);
+      alert("Error saving template");
+    } finally {
+      setIsSavingTemplate(false);
+    }
+  }, [orderedExercises, selectedEquipment, selectedMuscles, saveTemplateModal, t]);
 
   const handleToggleEquipment = (equipment: ExerciseAttributeValueEnum) => {
     toggleEquipment(equipment);
@@ -185,16 +259,12 @@ export function WorkoutStepper() {
 
   if (showCongrats && !isWorkoutActive) {
     return (
-      <>
-        <div className="flex flex-col items-center justify-center py-16 h-full">
-          <Image alt="Trophée" className="w-56 h-56" src={Trophy} />
-          <h2 className="text-2xl font-bold mb-2 text-center">{t("workout_builder.session.congrats")}</h2>
-          <p className="text-lg text-slate-600 mb-6">{t("workout_builder.session.congrats_subtitle")}</p>
-          <Button onClick={goToProfile}>{t("commons.go_to_profile")}</Button>
-        </div>
-        {/* Donation Modal */}
-        <DonationModal isOpen={showModal} onClose={closeModal} />
-      </>
+      <div className="flex flex-col items-center justify-center py-16 h-full">
+        <Image alt="Trophée" className="w-56 h-56" src={Trophy} />
+        <h2 className="text-2xl font-bold mb-2 text-center">{t("workout_builder.session.congrats")}</h2>
+        <p className="text-lg text-slate-600 mb-6">{t("workout_builder.session.congrats_subtitle")}</p>
+        <Button onClick={goToProfile}>{t("commons.go_to_profile")}</Button>
+      </div>
     );
   }
 
@@ -206,6 +276,21 @@ export function WorkoutStepper() {
         )}
         {!showCongrats && <WorkoutSessionHeader onQuitWorkout={quitWorkout} />}
         <WorkoutSessionSets isWorkoutActive={isWorkoutActive} onCongrats={handleCongrats} showCongrats={showCongrats} />
+      </div>
+    );
+  }
+
+  // Show template selection (Step 0) if user has templates and hasn't started building
+  if (showTemplateSelection && templates.length > 0) {
+    return (
+      <div className="w-full max-w-6xl mx-auto h-full px-4 py-6">
+        <TemplateList
+          onBuildNew={handleBuildNew}
+          onDeleteTemplate={handleDeleteTemplate}
+          onEditTemplate={handleEditTemplate}
+          onStartTemplate={handleStartFromTemplate}
+          templates={templates}
+        />
       </div>
     );
   }
@@ -256,16 +341,26 @@ export function WorkoutStepper() {
         );
       case 3:
         return (
-          <ExercisesSelection
-            error={exercisesError}
-            exercisesByMuscle={exercisesByMuscle}
-            isLoading={isLoadingExercises}
-            onAdd={handleAddExercise}
-            onDelete={handleDeleteExercise}
-            onPick={handlePickExercise}
-            onShuffle={handleShuffleExercise}
-            shufflingExerciseId={shufflingExerciseId}
-          />
+          <div className="space-y-4">
+            <ExercisesSelection
+              error={exercisesError}
+              exercisesByMuscle={exercisesByMuscle}
+              isLoading={isLoadingExercises}
+              onAdd={handleAddExercise}
+              onDelete={handleDeleteExercise}
+              onPick={handlePickExercise}
+              onShuffle={handleShuffleExercise}
+              shufflingExerciseId={shufflingExerciseId}
+            />
+            {orderedExercises.length > 0 && (
+              <div className="flex justify-center pt-2">
+                <Button onClick={saveTemplateModal.setTrue} size="small" variant="outline">
+                  <Bookmark className="w-4 h-4 mr-2" />
+                  {t("workout_templates.save_as_template")}
+                </Button>
+              </div>
+            )}
+          </div>
         );
       default:
         return null;
@@ -337,6 +432,14 @@ export function WorkoutStepper() {
       />
 
       <AddExerciseModal isOpen={addExerciseModal.value} onClose={addExerciseModal.setFalse} selectedEquipment={selectedEquipment} />
+
+      {/* Save Template Modal */}
+      <SaveTemplateModal
+        isLoading={isSavingTemplate}
+        isOpen={saveTemplateModal.value}
+        onClose={saveTemplateModal.setFalse}
+        onSave={handleSaveTemplate}
+      />
     </div>
   );
 }

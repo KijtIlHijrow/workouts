@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { HorizontalBottomBanner } from "@/components/ads";
 
 import { EQUIPMENT_CONFIG } from "../model/equipment-config";
+import { ExerciseQuickSearch } from "./exercise-quick-search";
 
 interface EquipmentSelectionProps {
   onClearEquipment: VoidFunction;
@@ -119,9 +120,20 @@ function EquipmentCard({ equipment, isSelected, onToggle }: EquipmentCardProps) 
 
 export function EquipmentSelection({ onToggleEquipment, selectedEquipment }: EquipmentSelectionProps) {
   const locale = useCurrentLocale();
+  const t = useI18n();
 
   return (
     <div className="space-y-6">
+      {/* Quick Search */}
+      <ExerciseQuickSearch />
+
+      {/* Divider with "or" text */}
+      <div className="flex items-center gap-4">
+        <div className="flex-1 h-px bg-slate-200 dark:bg-slate-700" />
+        <span className="text-sm text-slate-500 dark:text-slate-400 font-medium">{t("commons.or")}</span>
+        <div className="flex-1 h-px bg-slate-200 dark:bg-slate-700" />
+      </div>
+
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {EQUIPMENT_CONFIG.map((equipment, index) => (
           <div

@@ -50,11 +50,22 @@ export async function GET(request: NextRequest) {
     const whereClause: any = {};
     const conditions = [];
 
-    // Search by exercise name
+    // Search by exercise name - split into words and match ALL words (AND logic)
     if (search) {
-      conditions.push({
-        OR: [{ name: { contains: search, mode: "insensitive" } }, { nameEn: { contains: search, mode: "insensitive" } }],
-      });
+      const searchWords = search.trim().split(/\s+/).filter(word => word.length > 0);
+
+      if (searchWords.length > 0) {
+        // Each word must be present in either name or nameEn
+        const wordConditions = searchWords.map(word => ({
+          OR: [
+            { name: { contains: word, mode: "insensitive" as const } },
+            { nameEn: { contains: word, mode: "insensitive" as const } }
+          ],
+        }));
+
+        // All words must match (AND logic)
+        conditions.push(...wordConditions);
+      }
     }
 
     // Build attribute filters array

@@ -45,6 +45,9 @@ model User {
   // Training programs
   programEnrollments UserProgramEnrollment[]
 
+  // Workout templates
+  workoutTemplates WorkoutTemplate[]
+
   @@map("user")
 }
 
@@ -136,10 +139,11 @@ model Exercise {
   updatedAt         DateTime @updatedAt
 
   // Relations
-  attributes             ExerciseAttribute[]
-  WorkoutSessionExercise WorkoutSessionExercise[]
-  ProgramSessionExercise ProgramSessionExercise[]
-  favoritesByUsers       UserFavoriteExercise[]
+  attributes              ExerciseAttribute[]
+  WorkoutSessionExercise  WorkoutSessionExercise[]
+  ProgramSessionExercise  ProgramSessionExercise[]
+  favoritesByUsers        UserFavoriteExercise[]
+  WorkoutTemplateExercise WorkoutTemplateExercise[]
 
   @@map("exercises")
 }
@@ -346,6 +350,52 @@ enum WorkoutSetType {
 enum WorkoutSetUnit {
   kg
   lbs
+}
+
+// ========================================
+// WORKOUT TEMPLATES
+// ========================================
+
+model WorkoutTemplate {
+  id        String                       @id @default(cuid())
+  userId    String
+  name      String
+  equipment ExerciseAttributeValueEnum[] @default([])
+  muscles   ExerciseAttributeValueEnum[] @default([])
+  createdAt DateTime                     @default(now())
+  updatedAt DateTime                     @updatedAt
+
+  user      User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  exercises WorkoutTemplateExercise[]
+
+  @@map("workout_templates")
+}
+
+model WorkoutTemplateExercise {
+  id         String @id @default(cuid())
+  templateId String
+  exerciseId String
+  order      Int
+
+  template WorkoutTemplate      @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  exercise Exercise             @relation(fields: [exerciseId], references: [id])
+  sets     WorkoutTemplateSet[]
+
+  @@map("workout_template_exercises")
+}
+
+model WorkoutTemplateSet {
+  id                 String           @id @default(cuid())
+  templateExerciseId String
+  setIndex           Int
+  types              WorkoutSetType[] @default([])
+  valuesInt          Int[]            @default([])
+  valuesSec          Int[]            @default([])
+  units              WorkoutSetUnit[] @default([])
+
+  templateExercise WorkoutTemplateExercise @relation(fields: [templateExerciseId], references: [id], onDelete: Cascade)
+
+  @@map("workout_template_sets")
 }
 
 // ========================================

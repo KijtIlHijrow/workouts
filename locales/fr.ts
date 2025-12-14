@@ -1572,6 +1572,10 @@ export default {
     },
     no_exercises_found: "Aucun exercice trouvé. Essayez de changer vos équipements ou vos muscles sélectionnés.",
     addExercise: "Ajouter un exercice",
+    search_exercises: "Rechercher des exercices...",
+    quick_search_placeholder: "Rechercher un exercice par nom...",
+    quick_search_hint: "Vous connaissez l'exercice ? Recherchez pour l'ajouter directement",
+    search_results: "Résultats de recherche",
     exerciseAdded: "{name} ajouté à l'entraînement",
     exercises: "exercices",
     equipment: {
