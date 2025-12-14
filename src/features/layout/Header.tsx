@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { LogIn, UserPlus, LogOut, User } from "lucide-react";
 
@@ -14,12 +15,17 @@ import { useSession } from "@/features/auth/lib/auth-client";
 import { Link } from "@/components/ui/link";
 
 export const Header = () => {
+  const [mounted, setMounted] = useState(false);
   const session = useSession();
   const logout = useLogout();
   const t = useI18n();
 
-  // Get user initials for avatar
-  const userAvatar = session.data?.user?.email?.substring(0, 2).toUpperCase() || "";
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Get user initials for avatar - only after mount to avoid hydration mismatch
+  const userAvatar = mounted ? session.data?.user?.email?.substring(0, 2).toUpperCase() || "" : "";
 
   const handleSignOut = () => {
     logout.mutate();
