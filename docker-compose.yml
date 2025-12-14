@@ -12,7 +12,7 @@ services:
       retries: 5
     env_file: .env
 
-  workout_cool:
+  workouts:
     build:
       context: .
       dockerfile: Dockerfile

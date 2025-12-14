@@ -1,6 +1,6 @@
 <div align="center">
-<img src="public/logo.png" alt="Workout.cool Logo" width="120" height="120">
-<h1>Workout.cool</h1>
+<img src="public/logo.png" alt="Workouts Logo" width="120" height="120">
+<h1>Workouts</h1>
 <h3><em>Modern fitness coaching platform with comprehensive exercise database</em></h3>
 <p>
 <a href="https://github.com/Snouzy/workout-cool/graphs/contributors"><img src="https://img.shields.io/github/contributors/Snouzy/workout-cool?style=plastic" alt="Contributors">
@@ -57,7 +57,7 @@
 ## Sponsors
 
 <div>
-  <h4>They are helping making workout.cool free and open-source for everyone :</h4>
+  <h4>They are helping making workouts.app free and open-source for everyone :</h4>
 
 <a href="https://vercel.com/oss">
   <img alt="Vercel OSS Program" src="https://vercel.com/oss/program-badge.svg" />
@@ -98,7 +98,7 @@ detailed instructions and video demonstrations.
 This project was born from a personal mission to revive and improve upon a previous fitness platform. As the **primary contributor** to the
 original [workout.lol](https://github.com/workout-lol/workout-lol) project, I witnessed its journey and abandonment. 🥹
 
-### The Story Behind **_workout.cool_**
+### The Story Behind **_workouts.app_**
 
 - 🏗️ **Original Contributor**: I was the main contributor to workout.lol
 - 💼 **Business Challenges**: The original project faced major hurdles with exercise video partnerships (no reliable video provider) could
@@ -110,7 +110,7 @@ original [workout.lol](https://github.com/workout-lol/workout-lol) project, I wi
 - 📧 **Radio Silence**: Despite multiple (15) attempts, there has been no response
 - 🚀 **New Beginning**: Rather than let this valuable work disappear, I decided to create a fresh, modern implementation
 
-### Why **_workout.cool_** Exists
+### Why **_workouts.app_** Exists
 
 **Someone had to step up.**
 
@@ -118,7 +118,7 @@ The opensource fitness community deserves better than broken promises and abando
 
 I'm not building this for profit.
 
-This isn't just a revival : it's an evolution. **workout.cool** represents everything the original project could have been, with the
+This isn't just a revival : it's an evolution. **workouts.app** represents everything the original project could have been, with the
 reliability, modern approach, and **maintenance** that the fitness open source community deserves.
 
 ## 👥 From the Community, For the Community
@@ -196,7 +196,7 @@ management._
 3. **Set up PostgreSQL database**
 
    - If you don't already have it, install PostgreSQL locally
-   - Create a database named `workout_cool` : `createdb -h localhost -p 5432 -U postgres workout_cool`
+   - Create a database named `workouts_app` : `createdb -h localhost -p 5432 -U postgres workouts_app`
 
 4. **Run database migrations**
 
@@ -334,7 +334,7 @@ docker run -p 3000:3000 --env-file .env.production yourusername/workout-cool
 #### DATABASE_URL
 
 Update the `host` to point to the `postgres` service instead of `localhost`
-`DATABASE_URL=postgresql://username:password@postgres:5432/workout_cool`
+`DATABASE_URL=postgresql://username:password@postgres:5432/workouts_app`
 
 ```bash
 docker compose up -d
@@ -400,7 +400,7 @@ Appear in the README and on the website as supporter by donating:
   </a>
   &nbsp;&nbsp;&nbsp;
   <!-- TODO: setup -->
-  <!-- <a href="https://buymeacoffee.com/workout_cool" target="_blank">
+  <!-- <a href="https://buymeacoffee.com/workouts_app" target="_blank">
     <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="41" width="174" />
   </a> -->
 </div>
@@ -412,7 +412,7 @@ Appear in the README and on the website as supporter by donating:
 
 <p align="center">
   Your support helps cover hosting costs, exercise database updates, and continuous improvement.<br>
-  Thank you for keeping <strong>workout.cool</strong> alive and evolving 💪
+  Thank you for keeping <strong>workouts.app</strong> alive and evolving 💪
 </p>
 
 <br />

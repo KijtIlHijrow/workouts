@@ -50,6 +50,6 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/snouzy/workout-cool:${{ steps.vars.outputs.tag }}
-            ghcr.io/snouzy/workout-cool:latest
+            ghcr.io/snouzy/workouts:${{ steps.vars.outputs.tag }}
+            ghcr.io/snouzy/workouts:latest
           platforms: linux/amd64,linux/arm64

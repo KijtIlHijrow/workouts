@@ -58,7 +58,7 @@ export const Header = () => {
               <div className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-emerald-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100"></div>
             </div>
             <div className="flex-col hidden sm:flex">
-              <span className="font-bold transition-colors duration-200 group-hover:text-blue-400">Workout.cool</span>
+              <span className="font-bold transition-colors duration-200 group-hover:text-blue-400">Workouts</span>
             </div>
           </Link>
         </div>

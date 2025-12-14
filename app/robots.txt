@@ -31,4 +31,4 @@ Disallow: /onboarding/
 Disallow: /profile/
 
 # Sitemap
-Sitemap: https://www.workout.cool/sitemap.xml
+Sitemap: https://www.workouts.app/sitemap.xml

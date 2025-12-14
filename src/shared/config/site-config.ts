@@ -1,5 +1,5 @@
 export const SiteConfig = {
-  title: "Workout Cool",
+  title: "Workouts",
   description: "Modern fitness coaching platform with comprehensive exercise database",
   keywords: [
     "fitness",
@@ -13,26 +13,26 @@ export const SiteConfig = {
     "workout planner",
     "exercise database",
   ],
-  prodUrl: "https://workout.cool",
+  prodUrl: "https://workouts.app",
   logo: "/images/logo.png",
-  domain: "workout.cool",
+  domain: "workouts.app",
   appIcon: "/images/logo4.jpg",
   company: {
-    name: "Workout Cool",
+    name: "Workouts",
     address: "34 avenue des champ Elysée 75008 Paris, France",
   },
   brand: {
     primary: "#007291",
   },
   email: {
-    from: "Workout Cool <hello@workout.cool>",
-    contact: "hello@workout.cool",
+    from: "Workouts <hello@workouts.app>",
+    contact: "hello@workouts.app",
   },
   maker: {
-    image: "https://workout.cool/images/me/twitter-en.jpg",
-    website: "https://workout.cool",
-    twitter: "https://twitter.com/workout_cool",
-    name: "Workout Cool",
+    image: "https://workouts.app/images/me/twitter-en.jpg",
+    website: "https://workouts.app",
+    twitter: "https://twitter.com/workouts_app",
+    name: "Workouts",
   },
   auth: {
     password: false,
@@ -43,7 +43,7 @@ export const SiteConfig = {
       height: 630,
     },
     twitterHandle: "@snouzy_biceps",
-    applicationName: "Workout Cool",
+    applicationName: "Workouts",
     category: "fitness",
     classification: "Fitness & Health",
   },

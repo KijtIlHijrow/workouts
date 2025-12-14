@@ -2,12 +2,12 @@
 
 ## Project Overview
 
-Workout.cool is a fitness app with two main components:
+Workouts is a fitness app with two main components:
 
-- **Website** Next.js (App Router) web client with Server Actions Location: `/Users/mathiasbradiceanu/dev/perso/workout-cool-web`
+- **Website** Next.js (App Router) web client with Server Actions Location: `/Users/keith.ruggier/Library/Mobile Documents/com~apple~CloudDocs/workouts`
 
-- **Mobile App** React Native app for iOS and Android Consumes the Workout.cool Next.js API Location:
-  `/Users/mathiasbradiceanu/dev/perso/workout-cool-mobile`
+- **Mobile App** React Native app for iOS and Android Consumes the Workouts Next.js API Location:
+  `/Users/keith.ruggier/Library/Mobile Documents/com~apple~CloudDocs/workouts-mobile`
 
 ## Architecture
 
@@ -18,7 +18,7 @@ Workout.cool is a fitness app with two main components:
    - Uses App Router and Server Actions for data mutations
    - Provides REST/JSON API endpoints consumed by the mobile app
    - TailwindCSS for styling
-   - Contain the schema of the prisma database in `/Users/mathiasbradiceanu/dev/perso/workout-cool-web/prisma/schema.prisma`
+   - Contain the schema of the prisma database in `/Users/keith.ruggier/Library/Mobile Documents/com~apple~CloudDocs/workouts/prisma/schema.prisma`
 
 2. **Mobile App (React Native / Expo)**
 
@@ -46,7 +46,7 @@ Workout.cool is a fitness app with two main components:
 ## External Integrations
 
 - **Database**: PostgreSQL via Next.js data layer
-- **ORM**: Prisma, the schema is under `/Users/mathiasbradiceanu/dev/perso/workout-cool-web/prisma/schema.prisma`
+- **ORM**: Prisma, the schema is under `/Users/keith.ruggier/Library/Mobile Documents/com~apple~CloudDocs/workouts/prisma/schema.prisma`
 - **Authentication**: BetterAuth (email/password, OAuth)
 - **Video Hosting**: YouTube
 
