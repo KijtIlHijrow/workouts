@@ -503,9 +503,11 @@ export function WorkoutStepper() {
     <div className="w-full max-w-6xl mx-auto h-full">
       {renderTopBanner()}
 
-      <StepperHeader currentStep={currentStep} onStepClick={handleStepClick} steps={steps} />
+      {!editingTemplateId && (
+        <StepperHeader currentStep={currentStep} onStepClick={handleStepClick} steps={steps} />
+      )}
 
-      <div className="px-2 sm:px-6">{renderStepContent()}</div>
+      <div className={`px-2 sm:px-6 ${editingTemplateId ? 'pt-6' : ''}`}>{renderStepContent()}</div>
 
       <WorkoutBuilderFooter
         canContinue={canContinue}
