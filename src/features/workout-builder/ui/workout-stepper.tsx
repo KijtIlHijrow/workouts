@@ -428,33 +428,13 @@ export function WorkoutStepper() {
               onShuffle={handleShuffleExercise}
               shufflingExerciseId={shufflingExerciseId}
             />
-            {orderedExercises.length > 0 && (
+            {/* Show save as template button only when NOT editing an existing template */}
+            {orderedExercises.length > 0 && !editingTemplateId && (
               <div className="flex justify-center pt-2">
-                {editingTemplateId ? (
-                  <div className="flex items-center gap-2">
-                    <input
-                      className="input input-bordered input-sm w-48"
-                      onChange={(e) => setEditingTemplateName(e.target.value)}
-                      placeholder={t("workout_templates.save_modal.name_placeholder")}
-                      type="text"
-                      value={editingTemplateName}
-                    />
-                    <Button
-                      disabled={!editingTemplateName.trim() || isSavingTemplate}
-                      onClick={() => handleSaveTemplate(editingTemplateName)}
-                      size="small"
-                      variant="outline"
-                    >
-                      <Bookmark className="w-4 h-4 mr-2" />
-                      {isSavingTemplate ? t("commons.saving") : t("commons.save")}
-                    </Button>
-                  </div>
-                ) : (
-                  <Button onClick={saveTemplateModal.setTrue} size="small" variant="outline">
-                    <Bookmark className="w-4 h-4 mr-2" />
-                    {t("workout_templates.save_as_template")}
-                  </Button>
-                )}
+                <Button onClick={saveTemplateModal.setTrue} size="small" variant="outline">
+                  <Bookmark className="w-4 h-4 mr-2" />
+                  {t("workout_templates.save_as_template")}
+                </Button>
               </div>
             )}
           </div>
@@ -512,9 +492,14 @@ export function WorkoutStepper() {
       <WorkoutBuilderFooter
         canContinue={canContinue}
         currentStep={currentStep}
+        editingTemplateName={editingTemplateName}
+        isEditing={!!editingTemplateId}
+        isSavingTemplate={isSavingTemplate}
         onNext={nextStep}
         onPrevious={prevStep}
+        onSaveTemplate={() => handleSaveTemplate(editingTemplateName)}
         onStartWorkout={handleStartWorkout}
+        onTemplateNameChange={setEditingTemplateName}
         totalSteps={STEPPER_STEPS.length}
       />
 
