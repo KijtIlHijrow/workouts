@@ -1802,6 +1802,7 @@ export default {
       name_placeholder: "e.g. Chest, Delts & Triceps",
     },
     saved_success: "Template saved!",
+    updated_success: "Template updated!",
     deleted_success: "Template deleted",
     delete_confirm: "Are you sure you want to delete this template?",
     start_from_template: "Start from Template",

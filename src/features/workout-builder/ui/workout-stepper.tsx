@@ -15,6 +15,7 @@ import { SaveTemplateModal } from "@/features/workout-templates/ui/save-template
 import { getTemplates, WorkoutTemplateWithExercises } from "@/features/workout-templates/actions/get-templates.action";
 import { deleteTemplate } from "@/features/workout-templates/actions/delete-template.action";
 import { createTemplate } from "@/features/workout-templates/actions/create-template.action";
+import { updateTemplate } from "@/features/workout-templates/actions/update-template.action";
 import { WorkoutSessionSets } from "@/features/workout-session/ui/workout-session-sets";
 import { WorkoutSessionHeader } from "@/features/workout-session/ui/workout-session-header";
 import { WorkoutBuilderFooter } from "@/features/workout-builder/ui/workout-stepper-footer";
@@ -73,6 +74,8 @@ export function WorkoutStepper() {
   const [showTemplateSelection, setShowTemplateSelection] = useState(true);
   const [isLoadingTemplates, setIsLoadingTemplates] = useState(true);
   const [isSavingTemplate, setIsSavingTemplate] = useState(false);
+  const [editingTemplateId, setEditingTemplateId] = useState<string | null>(null);
+  const [editingTemplateName, setEditingTemplateName] = useState<string>("");
   const saveTemplateModal = useBoolean();
 
   // Fetch templates on mount
@@ -195,6 +198,10 @@ export function WorkoutStepper() {
   }, [startWorkout]);
 
   const handleEditTemplate = useCallback((template: WorkoutTemplateWithExercises) => {
+    // Track which template we're editing
+    setEditingTemplateId(template.id);
+    setEditingTemplateName(template.name);
+
     // Group exercises by muscle for the stepper format
     const exercisesByMuscleMap = new Map<ExerciseAttributeValueEnum, ExerciseWithAttributes[]>();
 
@@ -245,6 +252,8 @@ export function WorkoutStepper() {
   }, [t]);
 
   const handleBuildNew = useCallback(() => {
+    setEditingTemplateId(null);
+    setEditingTemplateName("");
     setShowTemplateSelection(false);
   }, []);
 
@@ -256,23 +265,43 @@ export function WorkoutStepper() {
         order: index,
       }));
 
-      const newTemplate = await createTemplate({
-        name,
-        equipment: selectedEquipment,
-        muscles: selectedMuscles,
-        exercises: exerciseData,
-      });
+      if (editingTemplateId) {
+        // Update existing template
+        const updatedTemplate = await updateTemplate({
+          id: editingTemplateId,
+          name,
+          equipment: selectedEquipment,
+          muscles: selectedMuscles,
+          exercises: exerciseData,
+        });
 
-      setTemplates((prev) => [newTemplate as WorkoutTemplateWithExercises, ...prev]);
+        setTemplates((prev) =>
+          prev.map((t) => (t.id === editingTemplateId ? (updatedTemplate as WorkoutTemplateWithExercises) : t))
+        );
+        setEditingTemplateId(null);
+        setEditingTemplateName("");
+        alert(t("workout_templates.updated_success"));
+      } else {
+        // Create new template
+        const newTemplate = await createTemplate({
+          name,
+          equipment: selectedEquipment,
+          muscles: selectedMuscles,
+          exercises: exerciseData,
+        });
+
+        setTemplates((prev) => [newTemplate as WorkoutTemplateWithExercises, ...prev]);
+        alert(t("workout_templates.saved_success"));
+      }
+
       saveTemplateModal.setFalse();
-      alert(t("workout_templates.saved_success"));
     } catch (error) {
       console.error("Error saving template:", error);
       alert("Error saving template");
     } finally {
       setIsSavingTemplate(false);
     }
-  }, [orderedExercises, selectedEquipment, selectedMuscles, saveTemplateModal, t]);
+  }, [orderedExercises, selectedEquipment, selectedMuscles, saveTemplateModal, t, editingTemplateId]);
 
   const handleToggleEquipment = (equipment: ExerciseAttributeValueEnum) => {
     toggleEquipment(equipment);
@@ -401,10 +430,31 @@ export function WorkoutStepper() {
             />
             {orderedExercises.length > 0 && (
               <div className="flex justify-center pt-2">
-                <Button onClick={saveTemplateModal.setTrue} size="small" variant="outline">
-                  <Bookmark className="w-4 h-4 mr-2" />
-                  {t("workout_templates.save_as_template")}
-                </Button>
+                {editingTemplateId ? (
+                  <div className="flex items-center gap-2">
+                    <input
+                      className="input input-bordered input-sm w-48"
+                      onChange={(e) => setEditingTemplateName(e.target.value)}
+                      placeholder={t("workout_templates.save_modal.name_placeholder")}
+                      type="text"
+                      value={editingTemplateName}
+                    />
+                    <Button
+                      disabled={!editingTemplateName.trim() || isSavingTemplate}
+                      onClick={() => handleSaveTemplate(editingTemplateName)}
+                      size="small"
+                      variant="outline"
+                    >
+                      <Bookmark className="w-4 h-4 mr-2" />
+                      {isSavingTemplate ? t("commons.saving") : t("commons.save")}
+                    </Button>
+                  </div>
+                ) : (
+                  <Button onClick={saveTemplateModal.setTrue} size="small" variant="outline">
+                    <Bookmark className="w-4 h-4 mr-2" />
+                    {t("workout_templates.save_as_template")}
+                  </Button>
+                )}
               </div>
             )}
           </div>
@@ -470,6 +520,7 @@ export function WorkoutStepper() {
 
       {/* Save Template Modal */}
       <SaveTemplateModal
+        initialName={editingTemplateName}
         isLoading={isSavingTemplate}
         isOpen={saveTemplateModal.value}
         onClose={saveTemplateModal.setFalse}

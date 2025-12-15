@@ -11,11 +11,12 @@ interface SaveTemplateModalProps {
   onClose: () => void;
   onSave: (name: string) => Promise<void>;
   isLoading?: boolean;
+  initialName?: string;
 }
 
-export function SaveTemplateModal({ isOpen, onClose, onSave, isLoading }: SaveTemplateModalProps) {
+export function SaveTemplateModal({ isOpen, onClose, onSave, isLoading, initialName = "" }: SaveTemplateModalProps) {
   const t = useI18n();
-  const [name, setName] = useState("");
+  const [name, setName] = useState(initialName);
   const modalRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -25,12 +26,13 @@ export function SaveTemplateModal({ isOpen, onClose, onSave, isLoading }: SaveTe
 
     if (isOpen) {
       modal.showModal();
+      setName(initialName);
       setTimeout(() => inputRef.current?.focus(), 100);
     } else {
       modal.close();
       setName("");
     }
-  }, [isOpen]);
+  }, [isOpen, initialName]);
 
   useEffect(() => {
     const modal = modalRef.current;
