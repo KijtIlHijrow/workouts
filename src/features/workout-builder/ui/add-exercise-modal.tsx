@@ -130,6 +130,9 @@ export const AddExerciseModal = ({ isOpen, onClose, selectedEquipment }: AddExer
     }))
     .filter((group) => group.exercises.length > 0);
 
+  // Check if there's content to display in the main area
+  const hasContent = isLoading || isSearching || searchQuery.trim() || filteredFavorites.length > 0 || (filteredMuscleGroups && filteredMuscleGroups.length > 0);
+
   const handleAddExercise = (exercise: ExerciseWithAttributes, muscle: ExerciseAttributeValueEnum) => {
     // If we're in the stepper, add to the workout builder store
     const muscleGroupIndex = exercisesByMuscle.findIndex((group) => group.muscle === muscle);
@@ -203,7 +206,7 @@ export const AddExerciseModal = ({ isOpen, onClose, selectedEquipment }: AddExer
         </div>
 
         {/* Search Input */}
-        <div className="px-4 py-3 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
+        <div className={`px-4 bg-white dark:bg-gray-900 ${hasContent ? "py-3 border-b border-gray-200 dark:border-gray-700" : "py-4"}`}>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
             <input
@@ -226,6 +229,7 @@ export const AddExerciseModal = ({ isOpen, onClose, selectedEquipment }: AddExer
         </div>
 
         {/* Contenu principal */}
+        {hasContent && (
         <div className="flex-1 overflow-y-auto p-2 sm:p-4 bg-gray-50 dark:bg-gray-800">
           {isLoading || isSearching ? (
             <div className="flex flex-col items-center justify-center py-16 space-y-4">
@@ -319,7 +323,7 @@ export const AddExerciseModal = ({ isOpen, onClose, selectedEquipment }: AddExer
             <div className="py-16 text-center text-gray-500 dark:text-gray-400">
               {t("workout_builder.no_exercises_found")}
             </div>
-          ) : (
+          ) : filteredFavorites.length > 0 || (filteredMuscleGroups && filteredMuscleGroups.length > 0) ? (
             <div className="space-y-3">
               {/* Favorites Section */}
               {filteredFavorites.length > 0 && (
@@ -533,10 +537,11 @@ export const AddExerciseModal = ({ isOpen, onClose, selectedEquipment }: AddExer
                 </div>
               ))}
             </div>
-          )}
+          ) : null}
         </div>
+        )}
 
-        <div className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 p-4">
+        <div className={`bg-white dark:bg-gray-900 ${hasContent ? "p-4 border-t border-gray-200 dark:border-gray-700" : "px-4 pt-0 pb-4"}`}>
           <button
             aria-label={t("commons.close")}
             className="btn btn-md bg-red-500 hover:bg-red-600 w-full text-white border-0 transition-all duration-200 ease-in-out"
