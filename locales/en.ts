@@ -1392,63 +1392,6 @@ export default {
     },
   },
 
-  // Release Notes
-  release_notes: {
-    title: "What's New",
-    release_notes: "Release Notes",
-    notes: {
-      note_2025_10_29: {
-        title: "🍑 New Booty Program Released!",
-        content:
-          "<li>A brand new <a href='/programs/booty-pump' class='text-blue-500 hover:underline'>Booty program</a> is now available!</li><li>Target and strengthen your glutes with specialized workouts</li><li>Designed for maximum results and muscle growth</li><li>Join the program today! 💪</li>",
-      },
-      note_2025_08_18: {
-        title: "🏆 New Leaderboard Feature!",
-        content:
-          "<li>New <strong>leaderboard</strong> to compete with other workout champions</li><li>View rankings by <strong>all-time, monthly, and weekly</strong> periods</li><li>Track your position among the top performers</li><li>Motivate yourself to climb the rankings! 🚀</li>",
-      },
-      note_2025_07_09: {
-        title: "🎯 Exercise Selection, Favorites & New Tools",
-        content:
-          "<li>New <strong>exercise selection</strong> during workout creation (step 3)</li><li><strong>Favorite exercises</strong> system to mark your preferred movements</li><li>New <em>fitness tools</em>: BMI calculator and heart rate zones</li><li>Improved program cards</li><li>New contributors join the project! 🚀</li>",
-      },
-      note_2025_07_02: {
-        title: "🛠️ Self-Hosting, Russian & New Tools",
-        content:
-          "Improved <strong>self-hosting</strong> capabilities, added <strong>Russian language</strong> support, and introduced new <em>fitness tools</em> including a calorie calculator. 🚀",
-      },
-      note_2025_06_23: {
-        title: "🇵🇹 Portuguese Support & Donation Banner",
-        content:
-          "The app now supports <strong>Portuguese</strong>! We've also added a <em>donation banner</em> to help support the ongoing costs of the project via <a href='https://github.com/sponsors/snouzy' target='_blank' rel='noopener' class='text-blue-500 hover:underline'>GitHub Sponsors</a> or <a href='https://ko-fi.com/workoutcool' target='_blank' rel='noopener' class='text-blue-500 hover:underline'>Ko-fi</a>. 🙏",
-      },
-      note_2025_06_22: {
-        title: "🌍 New Languages & Performance Boost!",
-        content:
-          "The app is now available in Chinese and Russian! We've also improved drag'n'drop performance for a smoother experience. ⚡",
-      },
-      note_2025_06_19: {
-        title: "📱 Now Available as a PWA!",
-        content:
-          "Workouts v1.2 is now a Progressive Web App! Install it on your phone for a native app experience with offline access. 🚀",
-      },
-      note_2025_06_18: {
-        title:
-          "🚀 Featured #1 on <a href='https://news.ycombinator.com/item?id=44309320' target='_blank' rel='noopener' class='text-blue-500 hover:underline'>Hacker News</a>!",
-        content:
-          "Workouts reached the top spot on Hacker News! Thanks to everyone for the amazing support and welcome to all the new users! 💪",
-      },
-      note_2025_06_01: {
-        title: "🎉 New: Release Notes Dialog",
-        content: "You can now view what's new directly from the header! Stay tuned for more updates.",
-      },
-      note_2025_05_20: {
-        title: "UI Improvements",
-        content: "Improved mobile responsiveness and added subtle hover effects to buttons.",
-      },
-    },
-  },
-
   // Premium Upsell Alert
   donation_alert: {
     title: "Unlock advanced features with Workouts Premium",
@@ -1812,7 +1755,6 @@ export default {
     my_account: "My account",
     dashboard: "Dashboard",
     home: "Home",
-    changelog: "Changelog",
     stop_impersonation_button: "Stop impersonation",
     impersonating_user_label: "Impersonating user",
     re_hello: "Re Hello",

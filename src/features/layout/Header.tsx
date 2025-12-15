@@ -7,7 +7,6 @@ import { LogIn, UserPlus, LogOut, User } from "lucide-react";
 import { useI18n } from "locales/client";
 import Logo from "@public/logo.png";
 import { ThemeToggle } from "@/features/theme/ThemeToggle";
-import { ReleaseNotesDialog } from "@/features/release-notes";
 import WorkoutStreakHeader from "@/features/layout/workout-streak-header";
 import { useLogout } from "@/features/auth/model/useLogout";
 import { useSession } from "@/features/auth/lib/auth-client";
@@ -65,7 +64,6 @@ export const Header = () => {
         {/* User Menu */}
         <div className="navbar-end">
           <WorkoutStreakHeader />
-          <ReleaseNotesDialog />
           <ThemeToggle />
 
           <div className="dropdown dropdown-end ml-1">
