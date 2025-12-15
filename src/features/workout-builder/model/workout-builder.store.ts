@@ -40,6 +40,7 @@ interface WorkoutBuilderState {
     }[];
     exercisesOrder: string[];
   }) => void;
+  resetBuilder: () => void;
 }
 
 export const useWorkoutBuilderStore = create<WorkoutBuilderState>((set, get) => ({
@@ -182,6 +183,19 @@ export const useWorkoutBuilderStore = create<WorkoutBuilderState>((set, get) => 
       currentStep: 3,
       isLoadingExercises: false,
       exercisesError: null,
+    });
+  },
+
+  resetBuilder: () => {
+    set({
+      currentStep: 1 as WorkoutBuilderStep,
+      selectedEquipment: [],
+      selectedMuscles: [],
+      exercisesByMuscle: [],
+      exercisesOrder: [],
+      isLoadingExercises: false,
+      exercisesError: null,
+      shufflingExerciseId: null,
     });
   },
 }));

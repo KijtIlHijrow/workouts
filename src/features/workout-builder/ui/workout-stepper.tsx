@@ -63,6 +63,7 @@ export function WorkoutStepper() {
     goToStep,
     deleteExercise,
     loadFromSession,
+    resetBuilder,
   } = useWorkoutStepper();
   const locale = useCurrentLocale();
   useEffect(() => {
@@ -252,10 +253,11 @@ export function WorkoutStepper() {
   }, [t]);
 
   const handleBuildNew = useCallback(() => {
+    resetBuilder();
     setEditingTemplateId(null);
     setEditingTemplateName("");
     setShowTemplateSelection(false);
-  }, []);
+  }, [resetBuilder]);
 
   const handleSaveTemplate = useCallback(async (name: string) => {
     setIsSavingTemplate(true);

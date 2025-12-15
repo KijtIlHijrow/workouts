@@ -25,6 +25,7 @@ export function useWorkoutStepper() {
     pickExercise,
     deleteExercise,
     loadFromSession,
+    resetBuilder,
   } = useWorkoutBuilderStore();
 
   const canProceedToStep2 = selectedEquipment.length > 0;
@@ -79,5 +80,8 @@ export function useWorkoutStepper() {
 
     // load
     loadFromSession,
+
+    // reset
+    resetBuilder,
   };
 }
