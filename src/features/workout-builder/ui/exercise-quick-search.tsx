@@ -221,7 +221,7 @@ export function ExerciseQuickSearch({ onExerciseAdded }: ExerciseQuickSearchProp
                       {/* Exercise Info */}
                       <div className="flex-1 min-w-0">
                         <h4 className="font-semibold text-gray-900 dark:text-white truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                          {locale === "fr" ? exercise.name : exercise.nameEn || exercise.name}
+                          {exercise.nameEn || exercise.name}
                         </h4>
                         <p className="text-xs text-gray-500 dark:text-gray-400">
                           {getMuscleFromExercise(exercise).replace(/_/g, " ").toLowerCase()}

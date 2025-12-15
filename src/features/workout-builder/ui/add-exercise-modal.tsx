@@ -250,7 +250,7 @@ export const AddExerciseModal = ({ isOpen, onClose, selectedEquipment }: AddExer
                     const muscle = getMuscleFromExercise(exercise);
                     return (
                       <div
-                        aria-label={`Add ${locale === "en" ? exercise.nameEn || exercise.name : exercise.name}`}
+                        aria-label={`Add ${exercise.nameEn || exercise.name}`}
                         className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200 ease-in-out cursor-pointer group"
                         key={exercise.id}
                         onClick={() => handleAddExercise(exercise, muscle)}
@@ -288,7 +288,7 @@ export const AddExerciseModal = ({ isOpen, onClose, selectedEquipment }: AddExer
                             {/* Exercise Name */}
                             <div className="flex-1">
                               <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors leading-tight">
-                                {locale === "fr" ? exercise.name : exercise.nameEn || exercise.name}
+                                {exercise.nameEn || exercise.name}
                               </h3>
                               <p className="text-xs text-gray-500 dark:text-gray-400">
                                 {getMuscleLabel(muscle)}
@@ -297,7 +297,7 @@ export const AddExerciseModal = ({ isOpen, onClose, selectedEquipment }: AddExer
 
                             {/* Add Button */}
                             <button
-                              aria-label={`Add ${locale === "en" ? exercise.nameEn || exercise.name : exercise.name}`}
+                              aria-label={`Add ${exercise.nameEn || exercise.name}`}
                               className="btn btn-sm sm:btn-md bg-green-500 hover:bg-green-600 text-white border-0 transition-all duration-200 ease-in-out group-hover:scale-105 shadow-sm hover:shadow-md"
                               onClick={(e) => {
                                 e.stopPropagation();
@@ -350,7 +350,7 @@ export const AddExerciseModal = ({ isOpen, onClose, selectedEquipment }: AddExer
                     <div className="divide-y divide-gray-100 dark:divide-gray-800" id="favorites-section">
                       {filteredFavorites.map((exercise: any) => (
                         <div
-                          aria-label={`Ajouter ${locale === "en" ? exercise.nameEn || exercise.name : exercise.name}`}
+                          aria-label={`Ajouter ${exercise.nameEn || exercise.name}`}
                           className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200 ease-in-out cursor-pointer group"
                           key={exercise.id}
                           onClick={() => {
@@ -399,13 +399,13 @@ export const AddExerciseModal = ({ isOpen, onClose, selectedEquipment }: AddExer
                               {/* Nom de l'exercice */}
                               <div className="flex-1">
                                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors leading-tight">
-                                  {locale === "fr" ? exercise.name : exercise.nameEn || exercise.name}
+                                  {exercise.nameEn || exercise.name}
                                 </h3>
                               </div>
 
                               {/* Bouton d'ajout moderne */}
                               <button
-                                aria-label={`Ajouter ${locale === "en" ? exercise.nameEn || exercise.name : exercise.name}`}
+                                aria-label={`Ajouter ${exercise.nameEn || exercise.name}`}
                                 className="btn btn-sm sm:btn-md bg-green-500 hover:bg-green-600 text-white border-0 transition-all duration-200 ease-in-out group-hover:scale-105 shadow-sm hover:shadow-md"
                                 onClick={(e) => {
                                   e.stopPropagation();
@@ -459,7 +459,7 @@ export const AddExerciseModal = ({ isOpen, onClose, selectedEquipment }: AddExer
                     <div className="divide-y divide-gray-100 dark:divide-gray-800" id={`muscle-${group.muscle}`}>
                       {group.exercises.map((exercise) => (
                         <div
-                          aria-label={`Ajouter ${locale === "en" ? exercise.nameEn || exercise.name : exercise.name}`}
+                          aria-label={`Ajouter ${exercise.nameEn || exercise.name}`}
                           className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200 ease-in-out cursor-pointer group"
                           key={exercise.id}
                           onClick={() => handleAddExercise(exercise, group.muscle)}
@@ -508,13 +508,13 @@ export const AddExerciseModal = ({ isOpen, onClose, selectedEquipment }: AddExer
                               {/* Nom de l'exercice */}
                               <div className="flex-1">
                                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors leading-tight">
-                                  {locale === "fr" ? exercise.name : exercise.nameEn || exercise.name}
+                                  {exercise.nameEn || exercise.name}
                                 </h3>
                               </div>
 
                               {/* Bouton d'ajout moderne */}
                               <button
-                                aria-label={`Ajouter ${locale === "en" ? exercise.nameEn || exercise.name : exercise.name}`}
+                                aria-label={`Ajouter ${exercise.nameEn || exercise.name}`}
                                 className="btn btn-sm sm:btn-md bg-green-500 hover:bg-green-600 text-white border-0 transition-all duration-200 ease-in-out group-hover:scale-105 shadow-sm hover:shadow-md"
                                 onClick={(e) => {
                                   e.stopPropagation();

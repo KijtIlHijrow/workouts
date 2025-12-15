@@ -18,16 +18,6 @@ export function generateProgramSEOKeywords(program: ProgramDetail, locale: Local
     levelTranslation.toLowerCase(),
     program.category.toLowerCase(),
     ...equipmentTranslations.map((eq) => eq.toLowerCase()),
-    locale === "en"
-      ? "workout program"
-      : locale === "es"
-        ? "programa de entrenamiento"
-        : locale === "pt"
-          ? "programa de treino"
-          : locale === "ru"
-            ? "программа тренировок"
-            : locale === "zh-CN"
-              ? "训练计划"
-              : "programme d'entraînement",
+    "workout program",
   ];
 }

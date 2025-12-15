@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: SessionDetailPageProps): Prom
           alt: sessionMetadata.title,
         },
       ],
-      locale: locale === "zh-CN" ? "zh_CN" : locale.replace("-", "_"),
+      locale: "en_US",
       type: "website",
     },
     twitter: {
@@ -59,15 +59,6 @@ export async function generateMetadata({ params }: SessionDetailPageProps): Prom
     },
     alternates: {
       canonical: `https://www.workouts.app/${locale}/programs/${slug}/session/${sessionSlug}`,
-      languages: {
-        "fr-FR": `https://www.workouts.app/fr/programs/${slug}/session/${sessionSlug}`,
-        "en-US": `https://www.workouts.app/en/programs/${slug}/session/${sessionSlug}`,
-        "es-ES": `https://www.workouts.app/es/programs/${slug}/session/${sessionSlug}`,
-        "pt-PT": `https://www.workouts.app/pt/programs/${slug}/session/${sessionSlug}`,
-        "ru-RU": `https://www.workouts.app/ru/programs/${slug}/session/${sessionSlug}`,
-        "zh-CN": `https://www.workouts.app/zh-CN/programs/${slug}/session/${sessionSlug}`,
-        "x-default": `https://www.workouts.app/programs/${slug}/session/${sessionSlug}`,
-      },
     },
     robots: {
       index: true,

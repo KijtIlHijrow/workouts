@@ -76,18 +76,7 @@ export function generateStructuredData({
     url: url || baseUrl,
     name: title || localizedData.title,
     description: description || localizedData.description,
-    inLanguage:
-      locale === "en"
-        ? "en-US"
-        : locale === "es"
-          ? "es-ES"
-          : locale === "pt"
-            ? "pt-PT"
-            : locale === "ru"
-              ? "ru-RU"
-              : locale === "zh-CN"
-                ? "zh-CN"
-                : "fr-FR",
+    inLanguage: "en-US",
     publisher: {
       "@type": "Organization",
       name: SiteConfig.company.name,
@@ -123,48 +112,13 @@ export function generateStructuredData({
           priceCurrency: "USD",
           availability: "https://schema.org/InStock",
         },
-        featureList:
-          locale === "en"
-            ? [
-                "Personalized workout builder",
-                "Comprehensive exercise database",
-                "Progress tracking",
-                "Muscle group targeting",
-                "Equipment-based filtering",
-              ]
-            : locale === "es"
-              ? [
-                  "Constructor de entrenamientos personalizado",
-                  "Base de datos completa de ejercicios",
-                  "Seguimiento de progreso",
-                  "Orientación a grupos musculares",
-                  "Filtrado basado en equipos",
-                ]
-              : locale === "pt"
-                ? [
-                    "Construtor de treinos personalizado",
-                    "Base de dados abrangente de exercícios",
-                    "Acompanhamento de progresso",
-                    "Segmentação de grupos musculares",
-                    "Filtragem baseada em equipamentos",
-                  ]
-                : locale === "ru"
-                  ? [
-                      "Персонализированный конструктор тренировок",
-                      "Полная база данных упражнений",
-                      "Отслеживание прогресса",
-                      "Нацеливание на группы мышц",
-                      "Фильтрация по оборудованию",
-                    ]
-                  : locale === "zh-CN"
-                    ? ["个性化锻炼计划构建器", "全面的运动数据库", "进度跟踪", "肌肉群目标定位", "基于设备的筛选"]
-                    : [
-                        "Créateur d'entraînement personnalisé",
-                        "Base de données d'exercices complète",
-                        "Suivi des progrès",
-                        "Ciblage des groupes musculaires",
-                        "Filtrage par équipement",
-                      ],
+        featureList: [
+          "Personalized workout builder",
+          "Comprehensive exercise database",
+          "Progress tracking",
+          "Muscle group targeting",
+          "Equipment-based filtering",
+        ],
       };
 
     case "Organization":
@@ -204,18 +158,7 @@ export function generateStructuredData({
         operatingSystem: "Web",
         downloadUrl: baseUrl,
         softwareVersion: "1.2.1",
-        releaseNotes:
-          locale === "en"
-            ? "Latest update includes improved exercise database and better user experience"
-            : locale === "es"
-              ? "La última actualización incluye una base de datos de ejercicios mejorada y una mejor experiencia de usuario"
-              : locale === "pt"
-                ? "A atualização mais recente inclui base de dados de exercícios melhorada e melhor experiência do usuário"
-                : locale === "ru"
-                  ? "Последнее обновление включает улучшенную базу данных упражнений и лучший пользовательский опыт"
-                  : locale === "zh-CN"
-                    ? "最新更新包括改进的运动数据库和更好的用户体验"
-                    : "La dernière mise à jour inclut une base de données d'exercices améliorée et une meilleure expérience utilisateur",
+        releaseNotes: "Latest update includes improved exercise database and better user experience",
         screenshot: image || `${baseUrl}/images/default-og-image_${locale}.jpg`,
         aggregateRating: {
           "@type": "AggregateRating",
@@ -266,25 +209,14 @@ export function generateStructuredData({
         name: title || baseStructuredData.name,
         description: description || baseStructuredData.description,
         url: url || baseUrl,
-        image: image || `${baseUrl}/images/default-og-image_${locale === "zh-CN" ? "zh" : locale}.jpg`,
+        image: image || `${baseUrl}/images/default-og-image_en.jpg`,
         provider: {
           "@type": "Organization",
           name: SiteConfig.company.name,
           url: baseUrl,
         },
         educationalLevel: difficultyLevel,
-        teaches:
-          locale === "en"
-            ? "Fitness and workout techniques"
-            : locale === "es"
-              ? "Técnicas de fitness y entrenamiento"
-              : locale === "pt"
-                ? "Técnicas de fitness e treino"
-                : locale === "ru"
-                  ? "Фитнес и техники тренировок"
-                  : locale === "zh-CN"
-                    ? "健身和锻炼技巧"
-                    : "Techniques de fitness et d'entraînement",
+        teaches: "Fitness and workout techniques",
         courseCode: courseData.id,
         hasCourseInstance: {
           "@type": "CourseInstance",
@@ -318,46 +250,13 @@ export function generateStructuredData({
           category: courseData.isPremium ? "Premium" : "Free",
         },
         keywords: [courseData.category, difficultyLevel, "fitness", "workout", "training", ...courseData.equipment].join(", "),
-        inLanguage:
-          locale === "en"
-            ? "en-US"
-            : locale === "es"
-              ? "es-ES"
-              : locale === "pt"
-                ? "pt-PT"
-                : locale === "ru"
-                  ? "ru-RU"
-                  : locale === "zh-CN"
-                    ? "zh-CN"
-                    : "fr-FR",
+        inLanguage: "en-US",
         isAccessibleForFree: !courseData.isPremium,
         syllabusSections: [
           {
             "@type": "Syllabus",
-            name:
-              locale === "en"
-                ? `${courseData.totalSessions} workout sessions`
-                : locale === "es"
-                  ? `${courseData.totalSessions} sesiones de entrenamiento`
-                  : locale === "pt"
-                    ? `${courseData.totalSessions} sessões de treino`
-                    : locale === "ru"
-                      ? `${courseData.totalSessions} тренировочных сессий`
-                      : locale === "zh-CN"
-                        ? `${courseData.totalSessions} 训练课程`
-                        : `${courseData.totalSessions} séances d'entraînement`,
-            description:
-              locale === "en"
-                ? `Complete ${courseData.durationWeeks}-week program with ${courseData.sessionsPerWeek} sessions per week`
-                : locale === "es"
-                  ? `Programa completo de ${courseData.durationWeeks} semanas con ${courseData.sessionsPerWeek} sesiones por semana`
-                  : locale === "pt"
-                    ? `Programa completo de ${courseData.durationWeeks} semanas com ${courseData.sessionsPerWeek} sessões por semana`
-                    : locale === "ru"
-                      ? `Полная программа на ${courseData.durationWeeks} недель с ${courseData.sessionsPerWeek} сессиями в неделю`
-                      : locale === "zh-CN"
-                        ? `${courseData.durationWeeks}周完整计划，每周${courseData.sessionsPerWeek}次训练`
-                        : `Programme complet de ${courseData.durationWeeks} semaines avec ${courseData.sessionsPerWeek} séances par semaine`,
+            name: `${courseData.totalSessions} workout sessions`,
+            description: `Complete ${courseData.durationWeeks}-week program with ${courseData.sessionsPerWeek} sessions per week`,
           },
         ],
       };
@@ -392,34 +291,8 @@ export function generateStructuredData({
           target: url || baseUrl,
         },
         genre: "Fitness",
-        keywords: [
-          locale === "en"
-            ? "workout session"
-            : locale === "es"
-              ? "sesión de entrenamiento"
-              : locale === "pt"
-                ? "sessão de treino"
-                : locale === "ru"
-                  ? "тренировочная сессия"
-                  : locale === "zh-CN"
-                    ? "训练课程"
-                    : "séance d'entraînement",
-          "fitness",
-          "exercise",
-          "training",
-        ].join(", "),
-        inLanguage:
-          locale === "en"
-            ? "en-US"
-            : locale === "es"
-              ? "es-ES"
-              : locale === "pt"
-                ? "pt-PT"
-                : locale === "ru"
-                  ? "ru-RU"
-                  : locale === "zh-CN"
-                    ? "zh-CN"
-                    : "fr-FR",
+        keywords: ["workout session", "fitness", "exercise", "training"].join(", "),
+        inLanguage: "en-US",
         embedUrl: url,
         interactionStatistic: {
           "@type": "InteractionCounter",
@@ -542,7 +415,7 @@ export function generateStructuredData({
       };
 
       const keywordsForType = calculatorKeywords[calculatorData.calculatorType];
-      const currentKeywords = keywordsForType?.[locale as keyof typeof keywordsForType] || keywordsForType?.en || [];
+      const currentKeywords = keywordsForType?.en || [];
 
       return {
         "@context": "https://schema.org",
@@ -589,18 +462,7 @@ export function generateStructuredData({
         isAccessibleForFree: true,
         featureList: calculatorData.inputFields.concat(calculatorData.outputFields),
         keywords: currentKeywords.join(", "),
-        inLanguage:
-          locale === "en"
-            ? "en-US"
-            : locale === "es"
-              ? "es-ES"
-              : locale === "pt"
-                ? "pt-PT"
-                : locale === "ru"
-                  ? "ru-RU"
-                  : locale === "zh-CN"
-                    ? "zh-CN"
-                    : "fr-FR",
+        inLanguage: "en-US",
         image: image || `${baseUrl}/images/calculator-og.jpg`,
         aggregateRating: {
           "@type": "AggregateRating",
@@ -671,18 +533,7 @@ export function generateStructuredData({
         },
         potentialAction: {
           "@type": "Action",
-          name:
-            locale === "en"
-              ? "Calculate Calories"
-              : locale === "fr"
-                ? "Calculer les Calories"
-                : locale === "es"
-                  ? "Calcular Calorías"
-                  : locale === "pt"
-                    ? "Calcular Calorias"
-                    : locale === "ru"
-                      ? "Рассчитать Калории"
-                      : "计算卡路里",
+          name: "Calculate Calories",
           target: url || baseUrl,
         },
         sameAs: calculatorData.relatedCalculators?.map((calc) => `${baseUrl}/tools/${calc}`) || [],

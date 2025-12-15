@@ -19,19 +19,7 @@ export function DurationBadge({
   const totalHours = Math.round(totalMinutes / 60);
 
   const formatDuration = () => {
-    if (locale === "en") {
-      return `${durationWeeks} weeks • ${totalHours}h total`;
-    } else if (locale === "es") {
-      return `${durationWeeks} semanas • ${totalHours}h total`;
-    } else if (locale === "pt") {
-      return `${durationWeeks} semanas • ${totalHours}h total`;
-    } else if (locale === "ru") {
-      return `${durationWeeks} недель • ${totalHours}ч всего`;
-    } else if (locale === "zh-CN") {
-      return `${durationWeeks} 周 • 总共${totalHours}小时`;
-    } else {
-      return `${durationWeeks} semaines • ${totalHours}h total`;
-    }
+    return `${durationWeeks} weeks • ${totalHours}h total`;
   };
 
   return (

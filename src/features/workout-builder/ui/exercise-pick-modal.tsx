@@ -48,8 +48,8 @@ export function ExercisePickModal({ exercise, muscle, isOpen, onClose, onConfirm
 
   if (!exercise) return null;
 
-  const exerciseName = locale === "fr" ? exercise.name : exercise.nameEn;
-  const exerciseDescription = locale === "fr" ? exercise.description : exercise.descriptionEn;
+  const exerciseName = exercise.nameEn;
+  const exerciseDescription = exercise.descriptionEn;
 
   // Extraire les attributs utiles
   const equipmentAttributes = getExerciseAttributesValueOf(exercise, ExerciseAttributeNameEnum.EQUIPMENT);

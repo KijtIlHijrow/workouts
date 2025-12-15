@@ -57,90 +57,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       description: localizedData.description,
       url: getServerUrl(),
       siteName: SiteConfig.title,
-      locale:
-        locale === "en"
-          ? "en_US"
-          : locale === "es"
-            ? "es_ES"
-            : locale === "pt"
-              ? "pt_PT"
-              : locale === "ru"
-                ? "ru_RU"
-                : locale === "zh-CN"
-                  ? "zh_CN"
-                  : "fr_FR",
-      alternateLocale: [
-        "fr_FR",
-        "fr_CA",
-        "fr_CH",
-        "fr_BE",
-        "en_US",
-        "en_GB",
-        "en_CA",
-        "en_AU",
-        "es_ES",
-        "es_MX",
-        "es_AR",
-        "es_CL",
-        "pt_PT",
-        "pt_BR",
-        "ru_RU",
-        "ru_BY",
-        "ru_KZ",
-        "zh_CN",
-        "zh_TW",
-        "zh_HK",
-      ].filter(
-        (alt) =>
-          alt !==
-          (locale === "en"
-            ? "en_US"
-            : locale === "es"
-              ? "es_ES"
-              : locale === "pt"
-                ? "pt_PT"
-                : locale === "ru"
-                  ? "ru_RU"
-                  : locale === "zh-CN"
-                    ? "zh_CN"
-                    : "fr_FR"),
-      ),
+      locale: "en_US",
       images: [
-        {
-          url: `${getServerUrl()}/images/default-og-image_fr.jpg`,
-          width: SiteConfig.seo.ogImage.width,
-          height: SiteConfig.seo.ogImage.height,
-          alt: `${SiteConfig.title} - Plateforme de fitness moderne`,
-        },
         {
           url: `${getServerUrl()}/images/default-og-image_en.jpg`,
           width: SiteConfig.seo.ogImage.width,
           height: SiteConfig.seo.ogImage.height,
           alt: `${SiteConfig.title} - Modern fitness platform`,
-        },
-        {
-          url: `${getServerUrl()}/images/default-og-image_es.jpg`,
-          width: SiteConfig.seo.ogImage.width,
-          height: SiteConfig.seo.ogImage.height,
-          alt: `${SiteConfig.title} - Plataforma de fitness moderna`,
-        },
-        {
-          url: `${getServerUrl()}/images/default-og-image_pt.jpg`,
-          width: SiteConfig.seo.ogImage.width,
-          height: SiteConfig.seo.ogImage.height,
-          alt: `${SiteConfig.title} - Plataforma de fitness moderna`,
-        },
-        {
-          url: `${getServerUrl()}/images/default-og-image_ru.jpg`,
-          width: SiteConfig.seo.ogImage.width,
-          height: SiteConfig.seo.ogImage.height,
-          alt: `${SiteConfig.title} - Современная фитнес платформа`,
-        },
-        {
-          url: `${getServerUrl()}/images/default-og-image_zh.jpg`,
-          width: SiteConfig.seo.ogImage.width,
-          height: SiteConfig.seo.ogImage.height,
-          alt: `${SiteConfig.title} - 现代健身平台`,
         },
       ],
       type: "website",
@@ -153,7 +76,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       description: localizedData.description,
       images: [
         {
-          url: `${getServerUrl()}/images/default-og-image_${locale === "zh-CN" ? "zh" : locale}.jpg`,
+          url: `${getServerUrl()}/images/default-og-image_en.jpg`,
           width: SiteConfig.seo.ogImage.width,
           height: SiteConfig.seo.ogImage.height,
           alt: localizedData.ogAlt,
@@ -162,15 +85,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     },
     alternates: {
       canonical: "https://www.workouts.app",
-      languages: {
-        "fr-FR": "https://www.workouts.app/fr",
-        "en-US": "https://www.workouts.app/en",
-        "es-ES": "https://www.workouts.app/es",
-        "pt-PT": "https://www.workouts.app/pt",
-        "ru-RU": "https://www.workouts.app/ru",
-        "zh-CN": "https://www.workouts.app/zh-CN",
-        "x-default": "https://www.workouts.app",
-      },
     },
     authors: [{ name: SiteConfig.company.name, url: getServerUrl() }],
     creator: SiteConfig.company.name,
@@ -259,15 +173,6 @@ export default async function RootLayout({ params, children }: RootLayoutProps) 
 
           {/* eslint-disable-next-line @next/next/no-page-custom-font */}
           <link as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="preload" />
-
-          {/* Alternate hreflang for i18n */}
-          <link href="https://www.workouts.app/fr" hrefLang="fr" rel="alternate" />
-          <link href="https://www.workouts.app/en" hrefLang="en" rel="alternate" />
-          <link href="https://www.workouts.app/es" hrefLang="es" rel="alternate" />
-          <link href="https://www.workouts.app/pt" hrefLang="pt" rel="alternate" />
-          <link href="https://www.workouts.app/ru" hrefLang="ru" rel="alternate" />
-          <link href="https://www.workouts.app/zh-CN" hrefLang="zh-CN" rel="alternate" />
-          <link href="https://www.workouts.app" hrefLang="x-default" rel="alternate" />
 
           {/* Theme color for PWA */}
           <meta content="#FF5722" name="theme-color" />

@@ -1,6 +1,7 @@
 import { Locale } from "locales/types";
 
 // Base type for any field that needs internationalization
+// Note: Database still stores all locale fields, but app only uses English
 export type I18nField<T extends string> = {
   [K in T]: string;
 } & {
@@ -21,34 +22,11 @@ export type I18nSlug = I18nField<"slug">;
 export type I18nName = I18nField<"name">;
 
 // Utility type to extract a specific locale field
-export type ExtractLocaleField<T extends Record<string, any>, Field extends keyof T, L extends Locale> = L extends "fr"
-  ? T[Field]
-  : L extends "en"
-    ? T[`${string & Field}En`]
-    : L extends "es"
-      ? T[`${string & Field}Es`]
-      : L extends "pt"
-        ? T[`${string & Field}Pt`]
-        : L extends "ru"
-          ? T[`${string & Field}Ru`]
-          : L extends "zh-CN"
-            ? T[`${string & Field}ZhCn`]
-            : never;
+export type ExtractLocaleField<T extends Record<string, unknown>, Field extends keyof T, L extends Locale> = L extends "en"
+  ? T[`${string & Field}En`]
+  : never;
 
-// Helper to get field suffix for a locale
-export function getLocaleSuffix(locale: Locale): "En" | "Es" | "Pt" | "Ru" | "ZhCn" | "" {
-  switch (locale) {
-    case "en":
-      return "En";
-    case "es":
-      return "Es";
-    case "pt":
-      return "Pt";
-    case "ru":
-      return "Ru";
-    case "zh-CN":
-      return "ZhCn";
-    default:
-      return "";
-  }
+// Helper to get field suffix for a locale (always returns "En" since app is English-only)
+export function getLocaleSuffix(_locale: Locale): "En" | "" {
+  return "En";
 }

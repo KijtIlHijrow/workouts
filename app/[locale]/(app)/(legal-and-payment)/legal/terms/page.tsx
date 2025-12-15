@@ -15,12 +15,10 @@ export default async function TermsPage({ params }: PageProps) {
       <div className="container mx-auto max-w-4xl px-4">
         <header className="mb-10 text-center">
           <Typography className="mb-2 text-3xl md:text-4xl" variant="h1">
-            {locale === "fr" ? "Conditions Générales d’Utilisation" : "Terms of Use"}
+            Terms of Use
           </Typography>
           <p className="text-muted-foreground text-base md:text-lg">
-            {locale === "fr"
-              ? "Merci de lire attentivement ces conditions avant d’utiliser nos services."
-              : "Please read these terms carefully before using our services."}
+            Please read these terms carefully before using our services.
           </p>
         </header>
 

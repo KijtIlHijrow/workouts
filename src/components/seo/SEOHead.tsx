@@ -46,7 +46,7 @@ export function generateSEOMetadata({
   const fullTitle = title ? `${title}` : SiteConfig.title;
   const finalDescription = description || SiteConfig.description;
   const finalCanonical = canonical || baseUrl;
-  const finalOgImage = ogImage || `${baseUrl}/images/default-og-image_${locale === "zh-CN" ? "zh" : locale}.jpg`;
+  const finalOgImage = ogImage || `${baseUrl}/images/default-og-image_en.jpg`;
   const allKeywords = [...SiteConfig.keywords, ...keywords];
 
   return {
@@ -86,18 +86,7 @@ export function generateSEOMetadata({
       description: finalDescription,
       url: finalCanonical,
       siteName: SiteConfig.title,
-      locale:
-        locale === "en"
-          ? "en_US"
-          : locale === "es"
-            ? "es_ES"
-            : locale === "pt"
-              ? "pt_PT"
-              : locale === "ru"
-                ? "ru_RU"
-                : locale === "zh-CN"
-                  ? "zh_CN"
-                  : "fr_FR",
+      locale: "en_US",
       alternateLocale: [
         "fr_FR",
         "fr_CA",
@@ -119,21 +108,7 @@ export function generateSEOMetadata({
         "zh_CN",
         "zh_TW",
         "zh_HK",
-      ].filter(
-        (alt) =>
-          alt !==
-          (locale === "en"
-            ? "en_US"
-            : locale === "es"
-              ? "es_ES"
-              : locale === "pt"
-                ? "pt_PT"
-                : locale === "ru"
-                  ? "ru_RU"
-                  : locale === "zh-CN"
-                    ? "zh_CN"
-                    : "fr_FR"),
-      ),
+      ].filter((alt) => alt !== "en_US"),
       images: [
         {
           url: finalOgImage,
@@ -180,7 +155,7 @@ export function SEOScripts({
 }: SEOScriptsProps) {
   const baseUrl = getServerUrl();
   const finalCanonical = canonical || baseUrl;
-  const finalOgImage = ogImage || `${baseUrl}/images/default-og-image_${locale === "zh-CN" ? "zh" : locale}.jpg`;
+  const finalOgImage = ogImage || `${baseUrl}/images/default-og-image_en.jpg`;
 
   let structuredDataObj;
   if (structuredData) {

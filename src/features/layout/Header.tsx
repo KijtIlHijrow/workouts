@@ -6,7 +6,6 @@ import { LogIn, UserPlus, LogOut, User } from "lucide-react";
 
 import { useI18n } from "locales/client";
 import Logo from "@public/logo.png";
-import { LanguageSelector } from "@/widgets/language-selector/language-selector";
 import { ThemeToggle } from "@/features/theme/ThemeToggle";
 import { ReleaseNotesDialog } from "@/features/release-notes";
 import WorkoutStreakHeader from "@/features/layout/workout-streak-header";
@@ -68,7 +67,6 @@ export const Header = () => {
           <WorkoutStreakHeader />
           <ReleaseNotesDialog />
           <ThemeToggle />
-          <LanguageSelector />
 
           <div className="dropdown dropdown-end ml-1">
             <div className="tooltip tooltip-bottom" data-tip={t("commons.profile")}>

@@ -14,7 +14,7 @@ import { SessionDetailResponse } from "@/entities/program/types/program.types";
 export async function getSessionBySlug(
   programSlug: string,
   sessionSlug: string,
-  locale: Locale = "fr",
+  locale: Locale = "en",
 ): Promise<SessionDetailResponse | null> {
   try {
     // Determine slug field based on locale
