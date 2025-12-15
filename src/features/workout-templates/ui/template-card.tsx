@@ -50,7 +50,7 @@ export function TemplateCard({ template, onStart, onEdit, onDelete }: TemplateCa
   return (
     <Card
       className={cn(
-        "group relative overflow-hidden cursor-pointer",
+        "group relative cursor-pointer",
         "bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-800 dark:to-slate-900",
         "border-2 border-blue-200 dark:border-slate-700",
         "rounded-xl shadow-sm hover:shadow-xl",
