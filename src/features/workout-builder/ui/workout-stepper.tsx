@@ -282,6 +282,7 @@ export function WorkoutStepper() {
         );
         setEditingTemplateId(null);
         setEditingTemplateName("");
+        setShowTemplateSelection(true);
         alert(t("workout_templates.updated_success"));
       } else {
         // Create new template
