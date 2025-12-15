@@ -61,7 +61,16 @@ export async function updateTemplate(data: UpdateTemplateData) {
     include: {
       exercises: {
         include: {
-          exercise: true,
+          exercise: {
+            include: {
+              attributes: {
+                include: {
+                  attributeName: true,
+                  attributeValue: true,
+                },
+              },
+            },
+          },
           sets: true,
         },
         orderBy: { order: "asc" },

@@ -42,7 +42,16 @@ export async function createTemplate(data: CreateTemplateData) {
     include: {
       exercises: {
         include: {
-          exercise: true,
+          exercise: {
+            include: {
+              attributes: {
+                include: {
+                  attributeName: true,
+                  attributeValue: true,
+                },
+              },
+            },
+          },
           sets: true,
         },
         orderBy: { order: "asc" },
